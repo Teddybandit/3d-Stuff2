@@ -6,7 +6,7 @@ class Main {
         frame.setSize(500,500);
         Player player = new Player();
         MyPanel panel = new MyPanel(player);
-        Bullet bullet = new Bullet(100,50);
+        Bullet bullet = new Bullet(100,10,-1,0);
         panel.addMob(bullet);
         frame.add(panel);
         frame.setVisible(true);
