@@ -14,7 +14,6 @@ public class Mob{
 
     }
     public static int whereLoad(Mob mob, Player p){
-        System.out.println(Math.atan2(mob.y-p.gety(),mob.x-p.getx()));
-        return (int)((Math.atan2(mob.y-p.gety(),mob.x-p.getx())-p.getFacing())/Math.PI*2000+250);
+        return (int)(2250-(Math.atan2(mob.y-p.gety(),mob.x-p.getx())-p.getFacing())/Math.PI*1000)%2000;
     }
 }
