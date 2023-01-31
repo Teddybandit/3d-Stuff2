@@ -6,7 +6,6 @@ public class MyPanel extends JPanel{
     private ArrayList<Mob> mobs = new ArrayList<Mob>();
     public MyPanel(Player player){
         P = player;
-        addKeyListener(P.getControlls());
     }
     @Override
     public void paint(Graphics g){

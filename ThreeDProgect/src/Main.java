@@ -5,6 +5,7 @@ class Main {
         Frame frame = new Frame();
         frame.setSize(500,500);
         Player player = new Player();
+        frame.addKeyListener(player.getControlls());
         MyPanel panel = new MyPanel(player);
         Bullet bullet = new Bullet(10,0,0,0);
         panel.addMob(bullet);
