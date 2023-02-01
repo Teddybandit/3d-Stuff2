@@ -32,7 +32,6 @@ public class Player{
               break;
               case 37:
                   leftPress=true;
-                  System.out.println(xFacing);
                   break;
               case 39:
                   rightPress=true;
@@ -82,22 +81,26 @@ public class Player{
     }
     public void act(){
       if(aPress){
-        y+=.5;
+        x+=Math.cos(xFacing+Math.PI/2);
+        y+=Math.sin(xFacing+Math.PI/2);
       }
       if(sPress){
-        x-=.5;
+        x+=Math.cos(xFacing+Math.PI);
+        y+=Math.sin(xFacing+Math.PI);
       }
       if(dPress){
-        y-=.5;
+        x+=Math.cos(xFacing-Math.PI/2);
+        y+=Math.sin(xFacing-Math.PI/2);
       }
       if(wPress){
-        x+=Math.tan(xFacing);
+        x+=Math.cos(xFacing);
+        y+=Math.sin(xFacing);
       }
       if(leftPress){
-          xFacing=xFacing+Math.PI/10%(2*Math.PI);
+          xFacing=xFacing+Math.PI/100%(2*Math.PI);
       }
       if(rightPress){
-          xFacing=xFacing-Math.PI/10%(2*Math.PI);
+          xFacing=xFacing-Math.PI/100%(2*Math.PI);
       }
     }
 }

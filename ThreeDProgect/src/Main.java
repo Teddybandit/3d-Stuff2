@@ -7,8 +7,10 @@ class Main {
         Player player = new Player();
         frame.addKeyListener(player.getControlls());
         MyPanel panel = new MyPanel(player);
-        Bullet bullet = new Bullet(10,0,0,0);
-        panel.addMob(bullet);
+        for(int i=0;i<5;i++){
+          Bullet bullet = new Bullet(10+i,0,0,0);
+          panel.addMob(bullet);
+        }
         frame.add(panel);
         frame.setVisible(true);
         while(true){
