@@ -16,6 +16,7 @@ class Main {
         while(true){
             panel.repaint();
             player.act();
+            player.mouseMovement(frame);
             try{
                 Thread.sleep(100);
             }catch(Exception e){}

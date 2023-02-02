@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.awt.*;
 import java.lang.Math;
 import java.sql.SQLOutput;
 
@@ -8,7 +9,14 @@ public class Player{
     private double xFacing = 0;
     private boolean aPress,sPress,dPress,wPress,leftPress,rightPress;
     KeyListener list;
+  MouseMotionListener mouse;
+  Robot robot;
     public Player(){
+      try{
+        robot = new Robot();
+      }catch(Exception e){
+        System.out.println("mouse controlls unavailable");
+      };
       list = new KeyAdapter(){
         @Override
         public void keyPressed(KeyEvent e){
@@ -66,6 +74,12 @@ public class Player{
           }
         }
       };
+    }
+    public void mouseMovement(Frame f){
+      if(f.getMousePosition()!=null){
+        xFacing-=(f.getMousePosition().getX()-250)/1000*Math.PI;
+        robot.mouseMove(f.getX()+250,f.getY()+250);
+      }
     }
     public double getx(){
         return x;
