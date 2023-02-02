@@ -9,7 +9,7 @@ public abstract class Mob{
     }
     public abstract void display(Player player,Graphics g);
     public abstract void act();
-    public static int whereLoad(Mob mob, Player p){
-        return (int)(2250-(Math.atan2(mob.y-p.gety(),mob.x-p.getx())-p.getFacing())/Math.PI*1000)%2000;
+    public static int whereXLoad(Mob mob, Player p) {
+        return (int) (2250 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * 1000) % 2000;
     }
 }

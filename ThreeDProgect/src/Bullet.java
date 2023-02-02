@@ -15,7 +15,10 @@ public class Bullet extends Mob{
         double dist = Math.sqrt(Math.pow(player.getx()-x,2)+Math.pow(player.gety()-y,2));
         if(dist!=0){
             g.setColor(Color.RED);
-            g.fillOval(Mob.whereLoad(this,player)-(int)(50/dist),250-(int)(50/dist),(int)(100/dist),(int)(100/dist));
+            g.fillOval(Mob.whereXLoad(this,player)-(int)(50/dist),
+                    250-(int)(50/dist-player.getYFacing()/Math.PI*1000),
+                    (int)(100/dist),
+                    (int)(100/dist));
         }
     }
     @Override

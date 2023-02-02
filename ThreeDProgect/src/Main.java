@@ -3,6 +3,7 @@ import javax.swing.*;
 class Main {
     public static void main(String[] args) {
         Frame frame = new Frame();
+        frame.setCursor(Cursor.CROSSHAIR_CURSOR);
         frame.setSize(500,500);
         Player player = new Player();
         frame.addKeyListener(player.getControlls());

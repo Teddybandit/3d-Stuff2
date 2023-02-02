@@ -9,10 +9,11 @@ public class MyPanel extends JPanel{
     }
     @Override
     public void paint(Graphics g){
-        g.setColor(Color.GREEN);
-        g.fillRect(0, 250, 1000, 1000);
         g.setColor(Color.CYAN);
-        g.fillRect(0,0,1000,250);
+        g.fillRect(0,0,1000,1000);
+        g.setColor(Color.GREEN);
+        g.fillRect(0, 250+(int)(P.getYFacing()/Math.PI*1000), 1000, 1000);
+
         for(Mob mob:mobs){
             mob.display(P,g);
             mob.act();

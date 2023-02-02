@@ -7,6 +7,7 @@ public class Player{
     private double x = 0;
     private double y = 0;
     private double xFacing = 0;
+    private double yFacing = 0;
     private boolean aPress,sPress,dPress,wPress,leftPress,rightPress;
     KeyListener list;
   MouseMotionListener mouse;
@@ -44,6 +45,9 @@ public class Player{
               case 39:
                   rightPress=true;
                   break;
+              case 27:
+                  System.exit(0);
+
           }
         }
          @Override
@@ -78,6 +82,7 @@ public class Player{
     public void mouseMovement(Frame f){
       if(f.getMousePosition()!=null){
         xFacing-=(f.getMousePosition().getX()-250)/1000*Math.PI;
+        yFacing-=(f.getMousePosition().getY()-250)/1000*Math.PI;
         robot.mouseMove(f.getX()+250,f.getY()+250);
       }
     }
@@ -90,9 +95,10 @@ public class Player{
     public double gety(){
         return y;
     }
-    public double getFacing(){
+    public double getXFacing(){
         return xFacing;
     }
+    public double getYFacing(){return yFacing;}
     public void act(){
       if(aPress){
         x+=Math.cos(xFacing+Math.PI/2);
