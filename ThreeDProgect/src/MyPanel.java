@@ -10,13 +10,20 @@ public class MyPanel extends JPanel{
     @Override
     public void paint(Graphics g){
         g.setColor(Color.CYAN);
-        g.fillRect(0,0,1000,1000);
+        g.fillRect(0,0,getWidth(),getHeight());
         g.setColor(Color.GREEN);
-        g.fillRect(0, 250+(int)(P.getYFacing()/Math.PI*1000), 1000, 1000);
-
+        g.fillRect(0, Math.max(getHeight()/2+(int)(P.getYFacing()/Math.PI*getHeight()*2),0), getWidth(), getHeight());
         for(Mob mob:mobs){
-            mob.display(P,g);
-            mob.act();
+            mob.refreshDistence(P);
+        }
+        Mob.sortDist(mobs);
+        for(int i = 0;i<mobs.size();i++){
+
+            mobs.get(i).display(P,g);
+            mobs.get(i).act();
+            if(mobs.get(i).doDeleat()){
+                mobs.remove(i);
+            }
         }
     }
     public void addMob(Mob m){

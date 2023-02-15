@@ -6,11 +6,13 @@ import java.sql.SQLOutput;
 public class Player{
     private double x = 0;
     private double y = 0;
+    private double z = 10;
     private double xFacing = 0;
     private double yFacing = 0;
     private boolean aPress,sPress,dPress,wPress,leftPress,rightPress;
+    MyPanel panel;
     KeyListener list;
-  MouseMotionListener mouse;
+    MouseAdapter mouse;
   Robot robot;
     public Player(){
       try{
@@ -45,8 +47,6 @@ public class Player{
               case 39:
                   rightPress=true;
                   break;
-              case 27:
-                  System.exit(0);
 
           }
         }
@@ -81,9 +81,14 @@ public class Player{
     }
     public void mouseMovement(Frame f){
       if(f.getMousePosition()!=null){
-        xFacing-=(f.getMousePosition().getX()-250)/1000*Math.PI;
-        yFacing-=(f.getMousePosition().getY()-250)/1000*Math.PI;
-        robot.mouseMove(f.getX()+250,f.getY()+250);
+        xFacing=(xFacing-((f.getMousePosition().getX()-panel.getWidth()/2)/panel.getWidth()*2*Math.PI))%(Math.PI*2);
+        yFacing=yFacing-(f.getMousePosition().getY()-panel.getHeight()/2)/panel.getHeight()*2*Math.PI;
+        if(yFacing<Math.PI/-2){
+          yFacing=Math.PI/-2;
+        }else if(yFacing>Math.PI/2){
+          yFacing=Math.PI/2;
+        }
+        robot.mouseMove(f.getX()+panel.getWidth()/2,f.getY()+panel.getHeight()/2);
       }
     }
     public double getx(){
@@ -95,26 +100,27 @@ public class Player{
     public double gety(){
         return y;
     }
+    public double getz() {return z;}
     public double getXFacing(){
         return xFacing;
     }
     public double getYFacing(){return yFacing;}
     public void act(){
       if(aPress){
-        x+=Math.cos(xFacing+Math.PI/2);
-        y+=Math.sin(xFacing+Math.PI/2);
+        x+=.5*Math.cos(xFacing+Math.PI/2);
+        y+=.5*Math.sin(xFacing+Math.PI/2);
       }
       if(sPress){
-        x+=Math.cos(xFacing+Math.PI);
-        y+=Math.sin(xFacing+Math.PI);
+        x+=.5*Math.cos(xFacing+Math.PI);
+        y+=.5*Math.sin(xFacing+Math.PI);
       }
       if(dPress){
-        x+=Math.cos(xFacing-Math.PI/2);
-        y+=Math.sin(xFacing-Math.PI/2);
+        x+=.5*Math.cos(xFacing-Math.PI/2);
+        y+=.5*Math.sin(xFacing-Math.PI/2);
       }
       if(wPress){
-        x+=Math.cos(xFacing);
-        y+=Math.sin(xFacing);
+        x+=.5*Math.cos(xFacing);
+        y+=.5*Math.sin(xFacing);
       }
       if(leftPress){
           xFacing=xFacing+Math.PI/100%(2*Math.PI);
@@ -122,5 +128,17 @@ public class Player{
       if(rightPress){
           xFacing=xFacing-Math.PI/100%(2*Math.PI);
       }
+    }
+    public void addPanel(MyPanel p){
+      panel = p;
+    }
+    public void addControlls(){
+      panel.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          super.mouseClicked(e);
+          panel.addMob(new Bullet(x,y,z,5*Math.cos(xFacing)*Math.cos(yFacing),5*Math.sin(xFacing)*Math.cos(yFacing),5*Math.sin(yFacing)));
+        }
+      });
     }
 }

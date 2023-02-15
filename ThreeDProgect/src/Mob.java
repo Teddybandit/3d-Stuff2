@@ -1,15 +1,53 @@
 import java.awt.*;
 import java.lang.Math;
+import java.util.ArrayList;
 public abstract class Mob{
-    protected int x;
-    protected int y;
-    public Mob(int x,int y){
+    protected double x,y,z;
+    protected double dist;
+    private static MyPanel panel;
+    public Mob(double x,double y,double z){
         this.x=x;
         this.y=y;
+        this.z=z;
     }
-    public abstract void display(Player player,Graphics g);
+    public void display(Player player,Graphics g){
+
+    }
+    public void refreshDistence(Player p){
+        dist = Math.sqrt(Math.pow(p.getx()-x,2)+Math.pow(p.gety()-y,2));
+    }
     public abstract void act();
     public static int whereXLoad(Mob mob, Player p) {
-        return (int) (2250 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * 1000) % 2000;
+        return (int) (panel.getWidth()*4.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%2000;
+    }
+    public static int whereYLoad(Mob mob, Player p){
+        return (int)(250-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*1000);
+    }
+    public static void sortDist(ArrayList<Mob> mobs){//uses bubble sort because the array will be nearly sorted
+        boolean cont = true;
+        Mob temp;
+        while(cont){
+            cont = false;
+            for(int i=0;i<mobs.size()-1;i++){
+                if(mobs.get(i).dist<mobs.get(i+1).dist){
+                    temp = mobs.set(i,mobs.get(i+1));
+                    mobs.set(i+1,temp);
+                    cont = true;
+                }
+            }
+        }
+    }
+    public abstract boolean doDeleat();
+    public double getX(){
+        return x;
+    }
+    public double getY(){
+        return y;
+    }
+    public double getZ(){
+        return z;
+    }
+    public static void setPanel(MyPanel pan){
+        panel = pan;
     }
 }
