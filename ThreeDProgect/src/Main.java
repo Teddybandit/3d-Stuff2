@@ -25,6 +25,9 @@ class Main {
           panel.addMob(new Bullet(10+i,0,10,0.1,0,0));
         }
         panel.addMob(new Pillar(20,0));
+        panel.addMob(new Pillar(0,-20));
+        panel.addMob(new Pillar(0,20));
+        panel.addMob(new Pillar(-20,0));
         panel.addMob(new Enemy(50,50,10));
         frame.add(panel);
         frame.setVisible(true);

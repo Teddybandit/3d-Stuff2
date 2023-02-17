@@ -11,13 +11,13 @@ public class Pillar extends Mob{
     }
 
     @Override
-    public void display(Player player, Graphics g) {
+    public void display(Player player, Graphics g, int x, int y) {
         g.setColor(Color.BLACK);
         g.fillRect(
-                Mob.whereXLoad(this,player)-(int)(250/dist),
-                250-(int)(1900/dist-player.getYFacing()/Math.PI*1000),
-                (int)(500/dist),
-                (int)(2000/dist)
+                Mob.whereXLoad(this,player)-(int)(x/2/dist),
+                Mob.whereYLoad(this,player)-(int)(y*10/dist),
+                (int)(x/dist),
+                (int)(y*10/dist)
         );
     }
     @Override

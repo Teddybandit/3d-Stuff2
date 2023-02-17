@@ -81,8 +81,8 @@ public class Player{
     }
     public void mouseMovement(Frame f){
       if(f.getMousePosition()!=null){
-        xFacing=(xFacing-((f.getMousePosition().getX()-panel.getWidth()/2)/panel.getWidth()*2*Math.PI))%(Math.PI*2);
-        yFacing=yFacing-(f.getMousePosition().getY()-panel.getHeight()/2)/panel.getHeight()*2*Math.PI;
+        xFacing=(xFacing-((f.getMousePosition().getX()-panel.getWidth()/2)/panel.getWidth()*Math.PI))%(Math.PI*2);
+        yFacing=yFacing-(f.getMousePosition().getY()-panel.getHeight()/2)/panel.getHeight()*Math.PI;
         if(yFacing<Math.PI/-2){
           yFacing=Math.PI/-2;
         }else if(yFacing>Math.PI/2){

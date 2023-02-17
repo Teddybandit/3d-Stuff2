@@ -19,10 +19,19 @@ public class MyPanel extends JPanel{
         Mob.sortDist(mobs);
         for(int i = 0;i<mobs.size();i++){
 
-            mobs.get(i).display(P,g);
+            mobs.get(i).display(P,g,getWidth(),getHeight());
             mobs.get(i).act();
             if(mobs.get(i).doDeleat()){
                 mobs.remove(i);
+            }
+            if(mobs.get(i) instanceof Bullet){
+                for(Mob mob:mobs){
+                    if(mob!=mobs.get(i)&&(mob instanceof tangible)&&((tangible)mob).doHit((Bullet)mobs.get(i))){
+                        ((tangible)mob).onHit();
+                        mobs.remove(i);
+                        i--;
+                    }
+                }
             }
         }
     }
