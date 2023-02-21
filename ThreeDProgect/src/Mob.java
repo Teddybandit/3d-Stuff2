@@ -2,6 +2,7 @@ import java.awt.*;
 import java.lang.Math;
 import java.util.ArrayList;
 public abstract class Mob{
+    //public final static double INV_ROOT_3 = ;
     protected double x,y,z;
     protected double dist;
     private static MyPanel panel;
@@ -10,7 +11,7 @@ public abstract class Mob{
         this.y=y;
         this.z=z;
     }
-    public void display(Player player,Graphics g){
+    public void display(Player player,Graphics g,int x,int y){
 
     }
     public void refreshDistence(Player p){
@@ -18,10 +19,10 @@ public abstract class Mob{
     }
     public abstract void act();
     public static int whereXLoad(Mob mob, Player p) {
-        return (int) (panel.getWidth()*4.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%2000;
+        return (int) (panel.getWidth()*4.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
     }
     public static int whereYLoad(Mob mob, Player p){
-        return (int)(250-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*1000);
+        return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
     }
     public static void sortDist(ArrayList<Mob> mobs){//uses bubble sort because the array will be nearly sorted
         boolean cont = true;
