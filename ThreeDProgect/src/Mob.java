@@ -21,8 +21,16 @@ public abstract class Mob{
     public static int whereXLoad(Mob mob, Player p) {
         return (int) (panel.getWidth()*4.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
     }
+    public static int whereXLoad(int x,int y, Player p) {
+        return (int) (panel.getWidth()*4.5 - (Math.atan2(y - p.gety(), x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
+    }
     public static int whereYLoad(Mob mob, Player p){
         return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
+    }
+    public static int whereYLoad(int x,int y,int z, Player p){
+        return (int)(panel.getHeight()/2-
+                (Math.atan2(z-p.getz(),Mob.hypotenuse(x-p.getx(),y-p.gety()))-
+                p.getYFacing())/Math.PI*panel.getHeight()*2);
     }
     public static void sortDist(ArrayList<Mob> mobs){//uses bubble sort because the array will be nearly sorted
         boolean cont = true;
@@ -50,5 +58,8 @@ public abstract class Mob{
     }
     public static void setPanel(MyPanel pan){
         panel = pan;
+    }
+    private static double hypotenuse(double a,double b){
+        return(Math.sqrt(a*a+b*b));
     }
 }
