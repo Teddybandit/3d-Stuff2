@@ -1,6 +1,5 @@
 import java.lang.Math;
 import java.awt.*;
-import java.sql.SQLOutput;
 
 public class Bullet extends Mob{
     double xSpeed,ySpeed,zSpeed;
@@ -11,14 +10,14 @@ public class Bullet extends Mob{
         zSpeed = zs;
     }
     @Override
-    public void display(Player player,Graphics g,int x,int y){
+    public void display(Player player,Graphics g){
         if(dist!=0){
             g.setColor(Color.RED);
             g.fillOval(
-                    Mob.whereXLoad(this,player)-(int)(x/5/dist),
-                    Mob.whereYLoad(this,player)-(int)(y/5/dist),
-                    (int)(x/10/dist),
-                    (int)(y/10/dist)
+                    Mob.whereXLoad(this,player)-(int)(1/5/dist),
+                    Mob.whereYLoad(this,player)-(int)(1/5/dist),
+                    (int)(1/10/dist),
+                    (int)(1/10/dist)
             );
         }
     }

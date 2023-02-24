@@ -11,7 +11,7 @@ public abstract class Mob{
         this.y=y;
         this.z=z;
     }
-    public void display(Player player,Graphics g,int x,int y){
+    public void display(Player player,Graphics g){
 
     }
     public void refreshDistence(Player p){
@@ -21,13 +21,13 @@ public abstract class Mob{
     public static int whereXLoad(Mob mob, Player p) {
         return (int) (panel.getWidth()*4.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
     }
-    public static int whereXLoad(int x,int y, Player p) {
+    public static int whereXLoad(double x,double y, Player p) {
         return (int) (panel.getWidth()*4.5 - (Math.atan2(y - p.gety(), x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
     }
     public static int whereYLoad(Mob mob, Player p){
         return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
     }
-    public static int whereYLoad(int x,int y,int z, Player p){
+    public static int whereYLoad(double x,double y,double z, Player p){
         return (int)(panel.getHeight()/2-
                 (Math.atan2(z-p.getz(),Mob.hypotenuse(x-p.getx(),y-p.gety()))-
                 p.getYFacing())/Math.PI*panel.getHeight()*2);

@@ -21,15 +21,8 @@ class Main {
         Mob.setPanel(panel);
         player.addPanel(panel);
         player.addControlls();
-        for(int i=0;i<5;i++){
-          panel.addMob(new Bullet(10+i,0,10,0.1,0,0));
-        }
-        panel.addMob(new Pillar(20,0));
-        panel.addMob(new Pillar(0,-20));
-        panel.addMob(new Pillar(0,20));
-        panel.addMob(new Pillar(-20,0));
-        panel.addMob(new Enemy(50,50,10));
         frame.add(panel);
+        panel.addMob(new Cube());
         frame.setVisible(true);
         while(true){
             if(pause) {

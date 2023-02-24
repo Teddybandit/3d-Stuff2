@@ -18,13 +18,13 @@ public class Enemy extends Mob implements tangible{
     }
 
     @Override
-    public void display(Player player, Graphics g,int x,int y) {
+    public void display(Player player, Graphics g) {
         g.setColor(Color.YELLOW);
         g.fillOval(
-                Mob.whereXLoad(this,player)-(int)(x/dist),
-                Mob.whereYLoad(this,player)-(int)(y/dist),
-                (int)(2*x/dist),
-                (int)(2*y/dist)
+                Mob.whereXLoad(this,player)-(int)(500/dist),
+                Mob.whereYLoad(this,player)-(int)(500/dist),
+                (int)(500/dist),
+                (int)(500/dist)
         );
     }
 
