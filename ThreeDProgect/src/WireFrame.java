@@ -41,6 +41,7 @@ public class WireFrame {
     public void display(Graphics g, Player p, Mob m){
         int[] ys = new int[sideNum];
         int[] xs = new int[sideNum];
+        System.out.println("drawing frame");
         for(int i=0;i<faceNum;i++){
             for(int i2=0;i2<sideNum;i++){
                 xs[i2] = Mob.whereXLoad(
@@ -57,5 +58,6 @@ public class WireFrame {
             }
             g.drawPolygon(xs,ys,sideNum);
         }
+        g.fillRect(10,10,10,10);
     }
 }

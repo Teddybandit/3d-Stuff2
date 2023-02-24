@@ -18,7 +18,7 @@ public class MyPanel extends JPanel{
         }
         Mob.sortDist(mobs);
         for(int i = 0;i<mobs.size();i++){
-
+            System.out.println("drawing mob "+mobs.get(i));
             mobs.get(i).display(P,g);
             mobs.get(i).act();
             if(mobs.get(i).doDeleat()){

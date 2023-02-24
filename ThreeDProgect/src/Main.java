@@ -20,9 +20,9 @@ class Main {
         MyPanel panel = new MyPanel(player);
         Mob.setPanel(panel);
         player.addPanel(panel);
+        panel.addMob(new Cube());
         player.addControlls();
         frame.add(panel);
-        panel.addMob(new Cube());
         frame.setVisible(true);
         while(true){
             if(pause) {
@@ -31,7 +31,7 @@ class Main {
                 player.mouseMovement(frame);
             }
             try{
-                Thread.sleep(50);
+                Thread.sleep(100);
             }catch(Exception e){}
         }
     }

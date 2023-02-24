@@ -11,7 +11,14 @@ public class Cube extends Mob{
     public boolean doDeleat(){
       return false;
     }
-    public void display(Graphics g, Player p){
-      frame.display(g,p,this);
+    @Override
+    public void display(Player player,Graphics g){
+        System.out.println("drawing cube");
+      frame.display(g,player,this);
+    }
+
+    @Override
+    public String toString() {
+        return "Cube";
     }
 }
