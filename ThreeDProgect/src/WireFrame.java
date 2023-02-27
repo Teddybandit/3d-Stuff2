@@ -15,9 +15,10 @@ public class WireFrame {
             System.out.println(e);
         }
         scan.useDelimiter("\n");
-        int Num = Integer.decode(scan.next());
-        points = new int[3][Num];
-        for(int i =0;i<Num;i++){
+        int num = Integer.decode(scan.next());
+        System.out.println("num - "+num);
+        points = new int[3][num];
+        for(int i =0;i<num;i++){
             String sPoint = (scan.next());
             Scanner scan2 = new Scanner(sPoint);
             scan2.useDelimiter(",");
@@ -40,24 +41,34 @@ public class WireFrame {
 }
     public void display(Graphics g, Player p, Mob m){
         int[] ys = new int[sideNum];
+        int[] wraps = new int[sideNum];
         int[] xs = new int[sideNum];
-        System.out.println("drawing frame");
         for(int i=0;i<faceNum;i++){
-            for(int i2=0;i2<sideNum;i++){
+          boolean doDraw = true;
+            for(int i2=0;i2<sideNum;i2++){
                 xs[i2] = Mob.whereXLoad(
                   m.getX()+points[0][faces[i2][i]],
                   m.getY()+points[1][faces[i2][i]],
                   p
                 );
+              wraps[i2]=Mob.getWraps();
                 ys[i2] = Mob.whereYLoad(
                   m.getX()+points[0][faces[i2][i]],
                   m.getY()+points[1][faces[i2][i]],
                   m.getZ()+points[2][faces[i2][i]],
                   p
                 );
+                if(i2>0 && wraps[i2]!=wraps[i2-1]){
+                  doDraw = false;
+                  break;
+                }
             }
-            g.drawPolygon(xs,ys,sideNum);
+            g.setColor(Color.BLACK);
+            if(i==3)
+              g.fillPolygon(xs,ys,sideNum);
+            else
+              g.drawPolygon(xs,ys,sideNum);
+            
         }
-        g.fillRect(10,10,10,10);
     }
 }

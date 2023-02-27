@@ -6,6 +6,7 @@ public abstract class Mob{
     protected double x,y,z;
     protected double dist;
     private static MyPanel panel;
+    private static int wraps = 0;
     public Mob(double x,double y,double z){
         this.x=x;
         this.y=y;
@@ -19,10 +20,11 @@ public abstract class Mob{
     }
     public abstract void act();
     public static int whereXLoad(Mob mob, Player p) {
-        return (int) (panel.getWidth()*4.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
+        return (int) ((panel.getWidth()*2.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4))-panel.getWidth()*2;
     }
     public static int whereXLoad(double x,double y, Player p) {
-        return (int) (panel.getWidth()*4.5 - (Math.atan2(y - p.gety(), x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
+        return (int) (panel.getWidth()*.5 - (Math.atan2(y - p.gety(), x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4);
+         
     }
     public static int whereYLoad(Mob mob, Player p){
         return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
@@ -62,4 +64,7 @@ public abstract class Mob{
     private static double hypotenuse(double a,double b){
         return(Math.sqrt(a*a+b*b));
     }
+  public static int getWraps(){
+    return wraps;
+  }
 }

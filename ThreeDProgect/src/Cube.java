@@ -13,7 +13,6 @@ public class Cube extends Mob{
     }
     @Override
     public void display(Player player,Graphics g){
-        System.out.println("drawing cube");
       frame.display(g,player,this);
     }
 
