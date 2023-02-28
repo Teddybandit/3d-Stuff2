@@ -9,7 +9,7 @@ public class Player{
     private double z = 10;
     private double xFacing = 0;
     private double yFacing = 0;
-    private boolean aPress,sPress,dPress,wPress,leftPress,rightPress;
+    private boolean aPress,sPress,dPress,wPress,leftPress,rightPress,upPress,downPress;
     MyPanel panel;
     KeyListener list;
     MouseAdapter mouse;
@@ -44,9 +44,14 @@ public class Player{
               case 37:
                   leftPress=true;
                   break;
+              case 38:
+                  upPress=true;
+                  break;
               case 39:
                   rightPress=true;
                   break;
+              case 40:
+                  downPress=true;
 
           }
         }
@@ -72,9 +77,14 @@ public class Player{
               case 37:
                   leftPress=false;
                   break;
+              case 38:
+                  upPress=false;
+                  break;
               case 39:
                   rightPress=false;
                   break;
+              case 40:
+                  downPress=false;
           }
         }
       };
@@ -127,6 +137,12 @@ public class Player{
       }
       if(rightPress){
           xFacing=xFacing-Math.PI/100%(2*Math.PI);
+      }
+      if(upPress){
+          yFacing=yFacing+Math.PI/100%(2*Math.PI);
+      }
+      if(downPress){
+          yFacing=yFacing-Math.PI/100%(2*Math.PI);
       }
     }
     public void addPanel(MyPanel p){
