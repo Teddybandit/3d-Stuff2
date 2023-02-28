@@ -12,7 +12,7 @@ public class MyPanel extends JPanel{
         g.setColor(Color.CYAN);
         g.fillRect(0,0,getWidth(),getHeight());
         g.setColor(Color.GREEN);
-        g.fillRect(0, Math.max(getHeight()/2+(int)(P.getYFacing()/Math.PI*getHeight()*2),0), getWidth(), getHeight());
+        g.fillRect(0, Math.max(getHeight()/2+(int)(P.getYFacing()/Math.PI*getHeight()*4),0), getWidth(), getHeight());
         for(Mob mob:mobs){
             mob.refreshDistence(P);
         }

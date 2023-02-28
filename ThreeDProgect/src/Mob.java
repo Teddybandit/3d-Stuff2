@@ -28,10 +28,14 @@ public abstract class Mob{
         double x1 = x-p.getx();
         double y1 = y-p.gety();
         double z1 = z-p.getz();
-        double x2 = Math.cos(p.getXFacing())*x1-Math.sin(p.getXFacing())*y1;
-        double x3 = Math.cos(p.getYFacing())*x2+Math.sin(p.getYFacing())*z1;
-        double y2 = Math.cos(p.getXFacing())*y1-Math.sin(p.getXFacing())*x1;
-        double z2 = Math.cos(p.getYFacing())*z1-Math.sin(p.getYFacing())*x2;
+        double x2 = Math.cos(p.getXFacing())*x1+
+          Math.sin(p.getXFacing())*y1;
+        double x3 = Math.cos(p.getYFacing())*x2+
+          Math.sin(p.getYFacing())*z1;
+        double y2 = Math.cos(p.getXFacing())*y1-
+          Math.sin(p.getXFacing())*x1;
+        double z2 = Math.cos(p.getYFacing())*z1-
+          Math.sin(p.getYFacing())*x2;
         return new Point(
           (int)((panel.getWidth()*2.5 - (Math.atan2(y2,x3))*panel.getWidth()*2)%(panel.getWidth()*4)-panel.getWidth()*2),
           (int)(panel.getHeight()/2-(Math.atan2(z2,Mob.hypotenuse(x3,y2))*panel.getHeight()*2))

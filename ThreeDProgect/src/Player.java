@@ -117,20 +117,20 @@ public class Player{
     public double getYFacing(){return yFacing;}
     public void act(){
       if(aPress){
-        x+=.5*Math.cos(xFacing+Math.PI/2);
-        y+=.5*Math.sin(xFacing+Math.PI/2);
+        x+=2*Math.cos(xFacing+Math.PI/2);
+        y+=2*Math.sin(xFacing+Math.PI/2);
       }
       if(sPress){
-        x+=.5*Math.cos(xFacing+Math.PI);
-        y+=.5*Math.sin(xFacing+Math.PI);
+        x+=2*Math.cos(xFacing+Math.PI);
+        y+=2*Math.sin(xFacing+Math.PI);
       }
       if(dPress){
-        x+=.5*Math.cos(xFacing-Math.PI/2);
-        y+=.5*Math.sin(xFacing-Math.PI/2);
+        x+=2*Math.cos(xFacing-Math.PI/2);
+        y+=2*Math.sin(xFacing-Math.PI/2);
       }
       if(wPress){
-        x+=.5*Math.cos(xFacing);
-        y+=.5*Math.sin(xFacing);
+        x+=2*Math.cos(xFacing);
+        y+=2*Math.sin(xFacing);
       }
       if(leftPress){
           xFacing=xFacing+Math.PI/100%(2*Math.PI);

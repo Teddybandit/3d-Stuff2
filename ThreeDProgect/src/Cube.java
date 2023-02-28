@@ -1,8 +1,8 @@
 import java.awt.*;
 public class Cube extends Mob{
     WireFrame frame;
-    public Cube(){
-      super(0,0,0);
+    public Cube(int x,int y,int z){
+      super(x,y,z);
       frame = new WireFrame("ThreeDProgect/src/CubeFrame.txt");
     }
     public void act() {
