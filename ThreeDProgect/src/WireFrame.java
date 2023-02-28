@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.Scanner;
 import java.io.*;
-import java.lang.Math;
 public class WireFrame {
     private int[][] points;
     private int[][] faces;
@@ -40,30 +39,33 @@ public class WireFrame {
             }
         }
 }
-    public void display(Graphics g, Player p, Mob m){
-        Point[] points2 = new Point[sideNum];
+    public void display(Graphics g, Player p, Mob m, MyPanel panel){
+        Point point;
         int[] xs = new int[sideNum];
         int[] ys = new int[sideNum];
+        boolean doDraw = true;
         for(int i=0;i<faceNum;i++){
-          boolean doDraw = true;
+            doDraw = true;
             for(int i2=0;i2<sideNum;i2++){
-                points2[i2] = Mob.whereLoad(
-                  m.getX()+points[0][faces[i2][i]],
-                  m.getY()+points[1][faces[i2][i]],
-                  m.getZ()+points[2][faces[i2][i]],
-                  p
+                point = Mob.whereLoad(
+                        m.getX()+points[0][faces[i2][i]],
+                        m.getY()+points[1][faces[i2][i]],
+                        m.getZ()+points[2][faces[i2][i]],
+                        p
                 );
-                xs[i2] = (int)points2[i2].getX();
-                ys[i2] = (int)points2[i2].getY();
+                xs[i2] = (int)point.getX();
+                ys[i2] = (int)point.getY();
             }
             for(int i2=0;i2<sideNum;i2++){
-              if(m.getPanel().getWidth()*2>Math.abs(points2[i2].getX()-points2[(i2+1)%sideNum].getX())){
+              if(m.getPanel().getWidth()*2>Math.abs(xs[i2]-xs[(i2+1)%sideNum])){
                 doDraw = false;
               }
             }
             g.setColor(Color.BLACK);
-            g.drawPolygon(xs,ys,sideNum);
-            
+            if(true){
+                g.drawPolygon(xs,ys,sideNum);
+
+            }
         }
     }
 }

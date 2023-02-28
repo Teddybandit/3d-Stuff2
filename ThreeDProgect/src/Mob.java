@@ -5,8 +5,7 @@ public abstract class Mob{
     //public final static double INV_ROOT_3 = ;
     protected double x,y,z;
     protected double dist;
-    private static MyPanel panel;
-    private static int wraps = 0;
+    protected static MyPanel panel;
     public Mob(double x,double y,double z){
         this.x=x;
         this.y=y;
@@ -21,7 +20,7 @@ public abstract class Mob{
     public abstract void act();
     public static int whereXLoad(Mob mob, Player p) {
         return (int) ((panel.getWidth()*2.5 - (Math.atan2(mob.y - p.gety(), mob.x - p.getx()) - p.getXFacing()) / Math.PI * panel.getWidth()*2)%(panel.getWidth()*4))-panel.getWidth()*2;
-    }    
+    }
     public static int whereYLoad(Mob mob, Player p){
         return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
     }
@@ -29,12 +28,12 @@ public abstract class Mob{
         double x1 = x-p.getx();
         double y1 = y-p.gety();
         double z1 = z-p.getz();
-        double x2 = Math.cos(p.getXFacing())*x1+Math.sin(p.getXFacing())*y1;
+        double x2 = Math.cos(p.getXFacing())*x1-Math.sin(p.getXFacing())*y1;
         double x3 = Math.cos(p.getYFacing())*x2+Math.sin(p.getYFacing())*z1;
-        double y2 = Math.cos(p.getXFacing())*y1+Math.sin(p.getXFacing())*x1;
+        double y2 = Math.cos(p.getXFacing())*y1-Math.sin(p.getXFacing())*x1;
         double z2 = Math.cos(p.getYFacing())*z1-Math.sin(p.getYFacing())*x2;
         return new Point(
-          (int)((panel.getWidth()*2.5 - (Math.atan2(y2,x2))*panel.getWidth()*2)%(panel.getWidth()*4))-panel.getWidth()*2,
+          (int)((panel.getWidth()*2.5 - (Math.atan2(y2,x3))*panel.getWidth()*2)%(panel.getWidth()*4)-panel.getWidth()*2),
           (int)(panel.getHeight()/2-(Math.atan2(z2,Mob.hypotenuse(x3,y2))*panel.getHeight()*2))
         );
     }
@@ -71,7 +70,4 @@ public abstract class Mob{
     private static double hypotenuse(double a,double b){
         return(Math.sqrt(a*a+b*b));
     }
-  public static int getWraps(){
-    return wraps;
-  }
 }

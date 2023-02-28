@@ -13,7 +13,7 @@ public class Cube extends Mob{
     }
     @Override
     public void display(Player player,Graphics g){
-      frame.display(g,player,this);
+      frame.display(g,player,this, panel);
     }
 
     @Override
