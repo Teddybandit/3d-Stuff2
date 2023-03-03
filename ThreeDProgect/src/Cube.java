@@ -1,9 +1,8 @@
 import java.awt.*;
 public class Cube extends Mob{
-    WireFrame frame;
     public Cube(int x,int y,int z){
       super(x,y,z);
-      frame = new WireFrame("ThreeDProgect/src/CubeFrame.txt");
+      wireFrame = new WireFrame("ThreeDProgect/src/CubeFrame.txt");
     }
     public void act() {
 
@@ -12,8 +11,8 @@ public class Cube extends Mob{
       return false;
     }
     @Override
-    public void display(Player player,Graphics g){
-      frame.display(g,player,this, panel);
+    public WireFrame getWireFrame(){
+      return wireFrame;
     }
 
     @Override

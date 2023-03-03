@@ -4,15 +4,13 @@ import java.util.ArrayList;
 public abstract class Mob{
     //public final static double INV_ROOT_3 = ;
     protected double x,y,z;
+    protected WireFrame wireFrame;
     protected double dist;
     protected static MyPanel panel;
     public Mob(double x,double y,double z){
         this.x=x;
         this.y=y;
         this.z=z;
-    }
-    public void display(Player player,Graphics g){
-
     }
     public void refreshDistence(Player p){
         dist = Math.sqrt(Math.pow(p.getx()-x,2)+Math.pow(p.gety()-y,2));
@@ -65,6 +63,7 @@ public abstract class Mob{
     public double getZ(){
         return z;
     }
+    public WireFrame getWireFrame(){return WireFrame;}
     public static void setPanel(MyPanel pan){
         panel = pan;
     }

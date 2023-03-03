@@ -7,6 +7,12 @@ public class WireFrame {
     private Color[] colors;
     private int faceNum;
     private int sideNum;
+    public int getFaceNum(){
+        return faceNum;
+    }
+    public int[] getPoints(int num){
+        return faces[num];
+    }
     public WireFrame(String FileName){
         Scanner scan = new Scanner("0\n0\n0");
         try {
