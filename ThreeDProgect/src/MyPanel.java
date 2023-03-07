@@ -23,20 +23,24 @@ public class MyPanel extends JPanel{
         double sinX = Math.sin(P.getXFacing());
         double cosY = Math.cos(P.getYFacing());
         double sinY = Math.sin(P.getYFacing());//are all calculated once, not for every point
-        for(int i = 0;i<mobs.size();i++){
+        for(int i = 0;i<mobs.size();i++){//loops through every mob
             double mobX = mobs.get(i).getX()-P.getx();
             double mobY = mobs.get(i).getY()-P.gety();
             double mobZ = mobs.get(i).getZ()-P.getz();// the relative position of a mob the player
-            for(int faceNum=0;faceNum<mobs.get(i).getWireFrame().getFaceNum();faceNum++){
+            for(int faceNum=0;faceNum<mobs.get(i).getWireFrame().getFaceNum();faceNum++){//loops through every face in the mob
               ThreeDPoint[] triangle = mobs.get(i).getWireFrame().getPolygon(faceNum);
               for(ThreeDPoint vertex:triangle){//Adjusts the placement of the points
-                x1 = vertex.getX+mobX;//adjusts the point based on where the mob is
-                y1 = vertex.getY+mobY;
-                z1 = vertex.getZ+mobZ;
+                double x1 = vertex.getX()+mobX;//adjusts the point based on where the mob is
+                double y1 = vertex.getY()+mobY;
+                double z1 = vertex.getZ()+mobZ;
                 double x2 = cosX*x1+sinX*y1;//rotate the points about the z axis
-                double y2 = cosX*y1-xinX*x1;
-                double z2 = cosY*z1-sinY*x2;
+                double y2 = cosX*y1-sinX*x1;
+                double z2 = cosY*z1-sinY*x2;//rotates the points about the y axis
                 double x3 = cosY*x2+sinY*z1;
+              }
+              Point[] screenTriangle = new Point[3];
+              for(int i2=0;i2<3;i2++){
+                  screenTriangle[i2] = Mob.whereLoad(triangle[i2],P);
               }
             }
             mobs.get(i).act();

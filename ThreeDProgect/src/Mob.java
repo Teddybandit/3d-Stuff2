@@ -22,21 +22,10 @@ public abstract class Mob{
     public static int whereYLoad(Mob mob, Player p){
         return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
     }
-    public static Point whereLoad(double x,double y,double z, Player p){
-        double x1 = x-p.getx();
-        double y1 = y-p.gety();
-        double z1 = z-p.getz();
-        double x2 = Math.cos(p.getXFacing())*x1+
-          Math.sin(p.getXFacing())*y1;
-        double x3 = Math.cos(p.getYFacing())*x2+
-          Math.sin(p.getYFacing())*z1;
-        double y2 = Math.cos(p.getXFacing())*y1-
-          Math.sin(p.getXFacing())*x1;
-        double z2 = Math.cos(p.getYFacing())*z1-
-          Math.sin(p.getYFacing())*x2;
+    public static Point whereLoad(ThreeDPoint point, Player p){
         return new Point(
-          (int)((panel.getWidth()*2.5 - (Math.atan2(y2,x3))*panel.getWidth()*2)%(panel.getWidth()*4)-panel.getWidth()*2),
-          (int)(panel.getHeight()/2-(Math.atan2(z2,Mob.hypotenuse(x3,y2))*panel.getHeight()*2))
+          (int)((panel.getWidth()*(2.5 - (Math.atan2(point.getY(), point.getX()))*2)%(4)-2)),
+          (int)(panel.getHeight()*(.5-(Math.atan2(point.getZ(), Mob.hypotenuse(point.getX(), point.getY()))*2)))
         );
     }
     public static void sortDist(ArrayList<Mob> mobs){//uses bubble sort because the array will be nearly sorted

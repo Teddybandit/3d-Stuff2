@@ -52,33 +52,3 @@ public class WireFrame {
             colors[i] = new Color(preColor[0],preColor[1],preColor[2]);
         }
 }
-    public void display(Graphics g, Player p, Mob m, MyPanel panel){
-        Point point;
-        int[] xs = new int[3];
-        int[] ys = new int[3];
-        boolean doDraw = true;
-        for(int i=0;i<faceNum;i++){
-            doDraw = true;
-            for(int i2=0;i2<3;i2++){
-                point = Mob.whereLoad(
-                    m.getX()+points[faces[i][i2]].getX(),
-                    m.getY()+points[faces[i][i2]].getY(),
-                    m.getZ()+points[faces[i][i2]].getZ(),
-                    p
-                );
-                xs[i2] = (int)point.getX();
-                ys[i2] = (int)point.getY();
-            }
-            for(int i2=0;i2<3;i2++){
-              if(m.getPanel().getWidth()*2>Math.abs(xs[i2]-xs[(i2+1)%3])){
-                doDraw = false;
-              }
-            }
-            g.setColor(colors[i]);
-            if(true){
-                g.fillPolygon(xs,ys,3);
-
-            }
-        }
-    }
-}
