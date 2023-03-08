@@ -1,28 +1,26 @@
 public class ThreeDPoint{
-  private int x;
-  private int y;
-  private int z;
-  public ThreeDPoint(int x,int y,int z){
+  private double x,y,z;
+  public ThreeDPoint(double x,double y,double z){
     this.x=x;
     this.y=y;
     this.z=z;
   }
-  public int getX(){
+  public double getX(){
     return x;
   }
-  public int getY(){
+  public double getY(){
     return y;
   }
-  public int getZ(){
+  public double getZ(){
     return z;
   }
-  public void setX(int num){
+  public void setX(double num){
     x=num;
   }
-  public void setY(int num){
+  public void setY(double num){
     y=num;
   }
-  public void setZ(int num){
+  public void setZ(double num){
     z=num;
   }
 }

@@ -34,14 +34,34 @@ public class MyPanel extends JPanel{
                 double y1 = vertex.getY()+mobY;
                 double z1 = vertex.getZ()+mobZ;
                 double x2 = cosX*x1+sinX*y1;//rotate the points about the z axis
-                double y2 = cosX*y1-sinX*x1;
-                double z2 = cosY*z1-sinY*x2;//rotates the points about the y axis
-                double x3 = cosY*x2+sinY*z1;
+                vertex.setY(cosX*y1-sinX*x1);
+                vertex.setZ(cosY*z1-sinY*x2);//rotates the points about the y axis
+                vertex.setX(cosY*x2+sinY*z1);
               }
               Point[] screenTriangle = new Point[3];
-              for(int i2=0;i2<3;i2++){
+              for(int i2=0;i2<3;i2++){//gives screenTriangle the location of the points on a 2d screen
                   screenTriangle[i2] = Mob.whereLoad(triangle[i2],P);
               }
+                boolean cont = true;
+                while(cont){//sorts the screen points by ascending xvalue
+                    Point temp;
+                    cont = false;
+                    for(int i2=0;i2<2;i2++){
+                        if(screenTriangle[i2].getX()<screenTriangle[i2+1].getX()){
+                            temp = screenTriangle[i2];
+                            screenTriangle[i2]=screenTriangle[i2+1];
+                            screenTriangle[i2+1]=temp;
+                            cont = true;
+                        }
+                    }
+                }
+                for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){
+                    if(x<screenTriangle[1].getX()) {
+                        for (int y =){
+
+                        }
+                    }
+                }
             }
             mobs.get(i).act();
             if(mobs.get(i).doDeleat()){
