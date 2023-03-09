@@ -10,6 +10,9 @@ public class MyPanel extends JPanel{
     public MyPanel(Player player){
         P = player;
     }
+    private int lineAt(Point p1,Point p2,int x){
+      return (int)((Math.round((double)(p2.getX()-p1.getX())/(p2.getY()-p1.getY())))+p1.getX());
+    }
     @Override
     public void paint(Graphics g){
         zBuffer = new int[getWidth()][getHeight()];//creates the zBuffer array to determine occlusion
@@ -55,12 +58,12 @@ public class MyPanel extends JPanel{
                         }
                     }
                 }
+                int direction = -1;
+                if(LineAt(screenTriangle[0],screenTriangle[2],screenTriangle[1].getX())>screenTriangle[1].getY){
+                  direction = 1;
+                }
                 for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){
-                    if(x<screenTriangle[1].getX()) {
-                        for (int y =){
-
-                        }
-                    }
+                    for(int y=lineAt(screenTriangle[0],))
                 }
             }
             mobs.get(i).act();
