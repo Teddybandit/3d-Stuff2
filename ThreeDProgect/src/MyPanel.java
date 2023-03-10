@@ -46,7 +46,7 @@ public class MyPanel extends JPanel{
                   screenTriangle[i2] = Mob.whereLoad(triangle[i2],P);
               }
                 boolean cont = true;
-                while(cont){//sorts the screen points by ascending xvalue
+                while(cont){//sorts the screen points by ascending x value
                     Point temp;
                     cont = false;
                     for(int i2=0;i2<2;i2++){
@@ -58,12 +58,20 @@ public class MyPanel extends JPanel{
                         }
                     }
                 }
-                int direction = -1;
-                if(LineAt(screenTriangle[0],screenTriangle[2],screenTriangle[1].getX())>screenTriangle[1].getY){
+                int direction = -1;//whether the triangle is drawn from top tobottom, or bottom to top
+                if(lineAt(screenTriangle[0],screenTriangle[2],(int)screenTriangle[1].getX())>screenTriangle[1].getY()){
                   direction = 1;
                 }
-                for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){
-                    for(int y=lineAt(screenTriangle[0],))
+
+                for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){//loops through every pixel that needs to be displayed
+                    int end;
+                    if(screenTriangle[1].getX()>x)
+                        end = lineAt(screenTriangle[0],screenTriangle[1],x);
+                    else
+                        end = lineAt(screenTriangle[1],screenTriangle[2],x);
+                    for(int y=lineAt(screenTriangle[0];y-direction!=end);y+=direction){
+                        int z =
+                    }
                 }
             }
             mobs.get(i).act();
