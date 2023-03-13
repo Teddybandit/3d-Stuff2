@@ -69,8 +69,13 @@ public class MyPanel extends JPanel{
                         end = lineAt(screenTriangle[0],screenTriangle[1],x);
                     else
                         end = lineAt(screenTriangle[1],screenTriangle[2],x);
-                    for(int y=lineAt(screenTriangle[0];y-direction!=end);y+=direction){
-                        int z =
+                    for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){
+                        ThreeDPoint planePoint = Vector.Whereplane(
+                                Vector.multiply(
+                                        new Vector(screenTriangle[1],screenTriangle[0]),
+                                        new Vector(screenTriangle[2],screenTriangle[0])
+                                ),
+                        );
                     }
                 }
             }

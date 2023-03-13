@@ -42,7 +42,7 @@ So the equation of the plane is x + 2y - z - 2 = 0.
 
 3. Determine if the line intersects the plane: Substituting the equation of the line into the equation of the plane, we get:
 x + 2y - z - 2 = 0
-(1 + 3t) + 2(2+3t) - (3+3t) - 2 = 0
+(3t) + 2(3t) - (3t) - 2 = 0
 8t = 1
 
 So t = 1/8, which means the line intersects the plane at t=1/8.
