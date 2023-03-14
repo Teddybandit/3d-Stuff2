@@ -10,18 +10,6 @@ public class Bullet extends Mob{
         zSpeed = zs;
     }
     @Override
-    public void display(Player player,Graphics g){
-        if(dist!=0){
-            g.setColor(Color.RED);
-            g.fillOval(
-                    Mob.whereXLoad(this,player)-(int)(1/5/dist),
-                    Mob.whereYLoad(this,player)-(int)(1/5/dist),
-                    (int)(1/10/dist),
-                    (int)(1/10/dist)
-            );
-        }
-    }
-    @Override
     public void act(){
         x+=xSpeed;
         y+=ySpeed;

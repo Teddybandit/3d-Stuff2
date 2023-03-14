@@ -52,7 +52,7 @@ public abstract class Mob{
     public double getZ(){
         return z;
     }
-    public WireFrame getWireFrame(){return WireFrame;}
+    public WireFrame getWireFrame(){return wireFrame;}
     public static void setPanel(MyPanel pan){
         panel = pan;
     }

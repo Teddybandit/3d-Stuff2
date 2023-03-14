@@ -6,7 +6,7 @@ public class MyPanel extends JPanel{
     private Player P;
     private ArrayList<Mob> mobs = new ArrayList<Mob>();
     private BufferedImage image;
-    int[][] zBuffer;
+    double[][] zBuffer;
     public MyPanel(Player player){
         P = player;
     }
@@ -15,23 +15,23 @@ public class MyPanel extends JPanel{
     }
     @Override
     public void paint(Graphics g){
-        zBuffer = new int[getWidth()][getHeight()];//creates the zBuffer array to determine occlusion
-        for(int i=0;i< zBuffer.length;i++){
-            for(int i2=0;i2<zBuffer[0].length;i2++){
-                zBuffer[i][i2] = Integer.MAX_VALUE;
+        zBuffer = new double[getWidth()][getHeight()];//creates the zBuffer array to determine occlusion
+        for(int x=0;x< zBuffer.length;x++){
+            for(int y=0;y<zBuffer[0].length;y++){
+                zBuffer[x][y] = Integer.MAX_VALUE;
             }
         }
-        image = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_ARGB);//the image thet will be displayed at the end
+        image = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_ARGB);//the image that will be displayed at the end
         double cosX = Math.cos(P.getXFacing());
         double sinX = Math.sin(P.getXFacing());
         double cosY = Math.cos(P.getYFacing());
         double sinY = Math.sin(P.getYFacing());//are all calculated once, not for every point
-        for(int i = 0;i<mobs.size();i++){//loops through every mob
-            double mobX = mobs.get(i).getX()-P.getx();
-            double mobY = mobs.get(i).getY()-P.gety();
-            double mobZ = mobs.get(i).getZ()-P.getz();// the relative position of a mob the player
-            for(int faceNum=0;faceNum<mobs.get(i).getWireFrame().getFaceNum();faceNum++){//loops through every face in the mob
-              ThreeDPoint[] triangle = mobs.get(i).getWireFrame().getPolygon(faceNum);
+        for(int mob = 0;mob<mobs.size();mob++){//loops through every mob
+            double mobX = mobs.get(mob).getX()-P.getx();
+            double mobY = mobs.get(mob).getY()-P.gety();
+            double mobZ = mobs.get(mob).getZ()-P.getz();// the relative position of a mob the player
+            for(int faceNum=0;faceNum<mobs.get(mob).getWireFrame().getFaceNum();faceNum++){//loops through every face in the mob
+              ThreeDPoint[] triangle = mobs.get(mob).getWireFrame().getPolygon(faceNum);
               for(ThreeDPoint vertex:triangle){//Adjusts the placement of the points
                 double x1 = vertex.getX()+mobX;//adjusts the point based on where the mob is
                 double y1 = vertex.getY()+mobY;
@@ -42,23 +42,23 @@ public class MyPanel extends JPanel{
                 vertex.setX(cosY*x2+sinY*z1);
               }
               Point[] screenTriangle = new Point[3];
-              for(int i2=0;i2<3;i2++){//gives screenTriangle the location of the points on a 2d screen
-                  screenTriangle[i2] = Mob.whereLoad(triangle[i2],P);
+              for(int i=0;i<3;i++){//gives screenTriangle the location of the points on a 2d screen
+                  screenTriangle[i] = Mob.whereLoad(triangle[i],P);
               }
                 boolean cont = true;
                 while(cont){//sorts the screen points by ascending x value
                     Point temp;
                     cont = false;
-                    for(int i2=0;i2<2;i2++){
-                        if(screenTriangle[i2].getX()<screenTriangle[i2+1].getX()){
-                            temp = screenTriangle[i2];
-                            screenTriangle[i2]=screenTriangle[i2+1];
-                            screenTriangle[i2+1]=temp;
+                    for(int i=0;i<2;i++){
+                        if(screenTriangle[i].getX()<screenTriangle[i+1].getX()){
+                            temp = screenTriangle[i];
+                            screenTriangle[i]=screenTriangle[i+1];
+                            screenTriangle[i+1]=temp;
                             cont = true;
                         }
                     }
                 }
-                int direction = -1;//whether the triangle is drawn from top tobottom, or bottom to top
+                int direction = -1;//whether the triangle is drawn from top to bottom, or bottom to top
                 if(lineAt(screenTriangle[0],screenTriangle[2],(int)screenTriangle[1].getX())>screenTriangle[1].getY()){
                   direction = 1;
                 }
@@ -70,28 +70,31 @@ public class MyPanel extends JPanel{
                     else
                         end = lineAt(screenTriangle[1],screenTriangle[2],x);
                     for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){
-                        ThreeDPoint planePoint = Vector.Whereplane(
+                        ThreeDPoint planePoint = Vector.whereplane(
                                 Vector.multiply(
-                                        new Vector(screenTriangle[1],screenTriangle[0]),
-                                        new Vector(screenTriangle[2],screenTriangle[0])
-                                ),
+                                        new Vector(triangle[1],triangle[0]),
+                                        new Vector(triangle[2],triangle[0])),
+                                triangle[0],
+                                new Vector(
+                                        Math.cos(P.getYFacing())*Math.cos(P.getXFacing()),
+                                        Math.cos(P.getYFacing())*Math.sin(P.getXFacing()),
+                                        Math.sin(P.getYFacing()))
                         );
+                        if(planePoint.getX()>0) {
+                            Double distance = Math.pow(planePoint.getX(),2) * Math.pow(planePoint.getY(),2) * Math.pow(planePoint.getZ(),2);
+                            if (zBuffer[x][y]<distance){
+                                zBuffer[x][y]=distance;
+                                image.setRGB(x,y,mobs.get(mob).getWireFrame().getRGB(faceNum));
+                            }
+                        }
                     }
                 }
             }
-            mobs.get(i).act();
-            if(mobs.get(i).doDeleat()){
-                mobs.remove(i);
+            mobs.get(mob).act();
+            if(mobs.get(mob).doDeleat()){
+                mobs.remove(mob);
             }
-            if(mobs.get(i) instanceof Bullet){
-                for(Mob mob:mobs){
-                    if(mob!=mobs.get(i)&&(mob instanceof tangible)&&((tangible)mob).doHit((Bullet)mobs.get(i))){
-                        ((tangible)mob).onHit();
-                        mobs.remove(i);
-                        i--;
-                    }
-                }
-            }
+
         }
     }
     public void addMob(Mob m){
