@@ -29,29 +29,30 @@ public class WireFrame {
             System.out.println(e);
         }
         scan.useDelimiter("\n");
-        int num = Integer.decode(scan.next());
+        int num = Integer.decode(scan.next());//the number of points
         System.out.println("num - " + num);
         points = new ThreeDPoint[num];
         for (int i = 0; i < num; i++) {
-            String sPoint = (scan.next());
+            String sPoint = (scan.next());//a line in the file for a point
             Scanner scan2 = new Scanner(sPoint);
             scan2.useDelimiter(",");
-            points[i] = new ThreeDPoint(
+            points[i] = new ThreeDPoint(//breaks the line into the x,y,z coordinates of the point
                     Integer.decode(scan2.next()),
                     Integer.decode(scan2.next()),
                     Integer.decode(scan2.next())
             );
         }
-        faceNum = Integer.decode(scan.next());
+        faceNum = Integer.decode(scan.next());//the number of faces
         faces = new ThreeDPoint[faceNum][3];
-        for (int i = 0; i < faceNum; i++) {
+        RGB = new int[faceNum];
+        for (int face = 0; face < faceNum; face++) {
             String sFace = scan.next();
             Scanner scan2 = new Scanner(sFace);
             scan2.useDelimiter(",");
-            for (int i2 = 0; i2 < 3; i2++) {
-                faces[i][i2] = points[Integer.decode(scan2.next())];
+            for (int i = 0; i < 3; i++) {
+                faces[face][i] = points[Integer.decode(scan2.next())];
             }
-            RGB[i] = Integer.decode(scan2.next());
+            RGB[face] = Integer.decode(scan2.next());//the hexidecimal representation of the color
         }
     }
 }

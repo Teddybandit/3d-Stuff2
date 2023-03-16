@@ -20,7 +20,7 @@ class Main {
         MyPanel panel = new MyPanel(player);
         Mob.setPanel(panel);
         player.addPanel(panel);
-        panel.addMob(new Cube(20,0,0));
+        panel.addMob(new Cube(100,0,0));
         player.addControlls();
         frame.add(panel);
         frame.setVisible(true);

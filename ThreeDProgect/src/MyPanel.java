@@ -1,5 +1,5 @@
 import java.awt.*;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 public class MyPanel extends JPanel{
@@ -16,12 +16,13 @@ public class MyPanel extends JPanel{
     @Override
     public void paint(Graphics g){
         zBuffer = new double[getWidth()][getHeight()];//creates the zBuffer array to determine occlusion
+        image = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_ARGB);//the image that will be displayed at the end
         for(int x=0;x< zBuffer.length;x++){
             for(int y=0;y<zBuffer[0].length;y++){
                 zBuffer[x][y] = Integer.MAX_VALUE;
+                image.setRGB(x,y,100);
             }
         }
-        image = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_ARGB);//the image that will be displayed at the end
         double cosX = Math.cos(P.getXFacing());
         double sinX = Math.sin(P.getXFacing());
         double cosY = Math.cos(P.getYFacing());
@@ -76,9 +77,10 @@ public class MyPanel extends JPanel{
                                         new Vector(triangle[2],triangle[0])),
                                 triangle[0],
                                 new Vector(
-                                        Math.cos(P.getYFacing())*Math.cos(P.getXFacing()),
-                                        Math.cos(P.getYFacing())*Math.sin(P.getXFacing()),
-                                        Math.sin(P.getYFacing()))
+                                        cosY*cosX,
+                                        cosY*sinX,
+                                        cosY
+                                )
                         );
                         if(planePoint.getX()>0) {
                             Double distance = Math.pow(planePoint.getX(),2) * Math.pow(planePoint.getY(),2) * Math.pow(planePoint.getZ(),2);
@@ -96,6 +98,9 @@ public class MyPanel extends JPanel{
             }
 
         }
+        g.drawImage(image,0,0,this);
+        System.out.println("displayed image");
+        g.drawRect(100,100,100,100);
     }
     public void addMob(Mob m){
         mobs.add(m);
