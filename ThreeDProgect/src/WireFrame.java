@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.*;
 public class WireFrame {
     private ThreeDPoint[] points;
-    private ThreeDPoint[][] faces;
+    private int[][] faces;
     private int[] RGB;
     private int faceNum;
     private int sideNum;
@@ -11,9 +11,18 @@ public class WireFrame {
     public int getFaceNum() {
         return faceNum;
     }
-
-    public ThreeDPoint[] getPolygon(int num) {
-        return faces[num];
+    public int getPointNum(){
+      return points.length;
+    }
+    public ThreeDPoint[] getPointsCopy(){
+      ThreeDPoint[] pointsCopy = new ThreeDPoint[points.length];
+      for(int i=0;i<pointsCopy.length;i++){
+        pointsCopy[i] = new ThreeDPoint (points[i].getX(),points[i].getY(),points[i].getZ());
+      }
+      return pointsCopy;
+    }
+    public int getFacePoint(int face, int point) {
+        return faces[face][point];
     }
 
     public int getRGB(int i) {
@@ -43,14 +52,14 @@ public class WireFrame {
             );
         }
         faceNum = Integer.decode(scan.next());//the number of faces
-        faces = new ThreeDPoint[faceNum][3];
+        faces = new int[faceNum][3];
         RGB = new int[faceNum];
         for (int face = 0; face < faceNum; face++) {
             String sFace = scan.next();
             Scanner scan2 = new Scanner(sFace);
             scan2.useDelimiter(",");
             for (int i = 0; i < 3; i++) {
-                faces[face][i] = points[Integer.decode(scan2.next())];
+                faces[face][i] = Integer.decode(scan2.next());
             }
             RGB[face] = Integer.decode(scan2.next());//the hexidecimal representation of the color
         }

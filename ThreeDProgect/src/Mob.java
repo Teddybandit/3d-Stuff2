@@ -24,7 +24,7 @@ public abstract class Mob{
     }
     public static Point whereLoad(ThreeDPoint point, Player p){
         return new Point(
-          (int)((panel.getWidth()*(2.5 - (Math.atan2(point.getY(), point.getX()))*2)%(4)-2)),
+          (int)(panel.getWidth()*((2.5 - (Math.atan2(point.getY(), point.getX()))*2)%(4)-2)),
           (int)(panel.getHeight()*(.5-(Math.atan2(point.getZ(), Mob.hypotenuse(point.getX(), point.getY()))*2)))
         );
     }

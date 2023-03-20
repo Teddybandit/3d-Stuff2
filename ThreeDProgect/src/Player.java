@@ -90,7 +90,7 @@ public class Player{
       };
     }
     public void mouseMovement(Frame f){
-      if(f.getMousePosition()!=null){
+      /*if(f.getMousePosition()!=null){
         xFacing=(xFacing-((f.getMousePosition().getX()-panel.getWidth()/2)/panel.getWidth()*Math.PI))%(Math.PI*2);
         yFacing=yFacing-(f.getMousePosition().getY()-panel.getHeight()/2)/panel.getHeight()*Math.PI;
         if(yFacing<Math.PI/-2){
@@ -99,7 +99,7 @@ public class Player{
           yFacing=Math.PI/2;
         }
         robot.mouseMove(f.getX()+panel.getWidth()/2,f.getY()+panel.getHeight()/2);
-      }
+      }*/
     }
     public double getx(){
         return x;

@@ -31,8 +31,8 @@ class Main {
                 player.mouseMovement(frame);
             }
             try{
-                Thread.sleep(100);
-            }catch(Exception e){}
+                Thread.sleep(10000);
+            }catch(Exception e){System.out.println("couldn't sleep");}
         }
     }
     public static boolean getPause(){

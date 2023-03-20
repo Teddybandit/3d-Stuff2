@@ -23,4 +23,7 @@ public class ThreeDPoint{
   public void setZ(double num){
     z=num;
   }
+  public String toString(){
+    return ("["+x+","+y+","+z+"]");
+  }
 }
