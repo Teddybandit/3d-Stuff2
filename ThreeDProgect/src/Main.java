@@ -31,7 +31,7 @@ class Main {
                 player.mouseMovement(frame);
             }
             try{
-                Thread.sleep(10000);
+                Thread.sleep(50);
             }catch(Exception e){System.out.println("couldn't sleep");}
         }
     }

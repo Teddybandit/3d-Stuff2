@@ -21,32 +21,32 @@ public class MyPanel extends JPanel{
         for(int x=0;x< zBuffer.length;x++){
             for(int y=0;y<zBuffer[0].length;y++){
                 zBuffer[x][y] = Integer.MAX_VALUE;
-                image.setRGB(x,y,Integer.MAX_VALUE-255);
+                image.setRGB(x,y,new Color(64,64,128).getRGB());
             }
         }
-        System.out.println("XFacing - "+P.getXFacing()/Math.PI+"pi\nYFacing - "+P.getYFacing()/Math.PI+"pi");
+        //System.out.println("XFacing - "+P.getXFacing()/Math.PI+"pi\nYFacing - "+P.getYFacing()/Math.PI+"pi");
         double cosX = Math.cos(P.getXFacing());
         double sinX = Math.sin(P.getXFacing());
         double cosY = Math.cos(P.getYFacing());
         double sinY = Math.sin(P.getYFacing());//are all calculated once, not for every point
-        System.out.println("cosX - "+cosX+"\ncosY - "+cosY+"\nsinX - "+sinX+"\nsinY - "+sinY+"\n");
-        System.out.println("mobs - "+mobs.size());
+        //System.out.println("cosX - "+cosX+"\ncosY - "+cosY+"\nsinX - "+sinX+"\nsinY - "+sinY+"\n");
+        //System.out.println("mobs - "+mobs.size());
         for(int mob = 0;mob<mobs.size();mob++){//loops through every mob
             double mobX = mobs.get(mob).getX()-P.getx();
             double mobY = mobs.get(mob).getY()-P.gety();
             double mobZ = mobs.get(mob).getZ()-P.getz();// the relative position of a mob the player
-            ThreeDPoint[] points = mobs.get(mob).getWireFrame().getPointsCopy().clone();
+            ThreeDPoint[] points = mobs.get(mob).getWireFrame().getPointsCopy();
             for(ThreeDPoint vertex : points){//loops through all the points
-                System.out.println(vertex);
+                //System.out.println(vertex);
                 double x1 = vertex.getX()+mobX;//adjusts the point based on where the mob is
                 double y1 = vertex.getY()+mobY;
                 double z1 = vertex.getZ()+mobZ;
-                System.out.println("["+x1+","+y1+","+z1+"]");
+                //System.out.println("["+x1+","+y1+","+z1+"]");
                 double x2 = cosX*x1+sinX*y1;//rotate the points about the z axis
                 vertex.setY(cosX*y1-sinX*x1);
                 vertex.setZ(cosY*z1-sinY*x2);//rotates the points about the y axis
                 vertex.setX(cosY*x2+sinY*z1);
-                System.out.println(vertex);
+                //System.out.println(vertex);
             }
             for(int faceNum=0;faceNum<mobs.get(mob).getWireFrame().getFaceNum();faceNum++){//loops through every face in the mob
               ThreeDPoint[] triangle = {
@@ -57,7 +57,8 @@ public class MyPanel extends JPanel{
               Point[] screenTriangle = new Point[3];
               for(int i=0;i<3;i++){//gives screenTriangle the location of the points on a 2d screen
                   screenTriangle[i] = Mob.whereLoad(triangle[i],P);
-                  System.out.println(""+screenTriangle[i].toString());
+                  //System.out.println(""+screenTriangle[i].toString());
+                  image.getGraphics().fillOval((int)screenTriangle[i].getX(),(int)screenTriangle[i].getY(),10,10);
               }
                 boolean cont = true;
                 while(cont){//sorts the screen points by ascending x value
@@ -84,7 +85,7 @@ public class MyPanel extends JPanel{
                     else
                         end = lineAt(screenTriangle[1],screenTriangle[2],x);
                     for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){
-                        ThreeDPoint planePoint = Vector.whereplane(
+                        double dist = Vector.planeDist(
                                 Vector.multiply(
                                         new Vector(triangle[1],triangle[0]),
                                         new Vector(triangle[2],triangle[0])),
@@ -95,11 +96,10 @@ public class MyPanel extends JPanel{
                                         cosY
                                 )
                         );
-                        if(planePoint.getX()>0) {
-                            Double distance = Math.pow(planePoint.getX(),2) * Math.pow(planePoint.getY(),2) * Math.pow(planePoint.getZ(),2);
-                            if (zBuffer[x][y]<distance){
-                                zBuffer[x][y]=distance;
-                                image.setRGB(x,y,Integer.MAX_VALUE-mobs.get(mob).getWireFrame().getRGB(faceNum));
+                        if(dist>0) {
+                            if (zBuffer[x][y]>dist){
+                                zBuffer[x][y]=dist;
+                                image.setRGB(x,y,Color.GREEN.getRGB());
                             }
                         }
                     }
@@ -110,6 +110,14 @@ public class MyPanel extends JPanel{
                 mobs.remove(mob);
             }
 
+        }
+        for(int x=0;x< zBuffer.length;x++){
+            for(int y=0;y<zBuffer[0].length;y++){
+                if(zBuffer[x][y] >= 255)
+                    image.setRGB(x,y,Color.WHITE.getRGB());
+            }else{
+                image.setRGB(x,y,new Color(zBuffer[x][y],zBuffer[x][y],zBuffer[x][y]));
+            }
         }
         g.drawImage(image,0,0,null);
     }

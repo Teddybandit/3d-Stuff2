@@ -17,9 +17,8 @@ public class Vector {
     }
     //takes a point on the plane, the normal of the plane, and the line being checked
     //returns the point that the vector hits the plane if the vector starts at the origin
-    public static ThreeDPoint whereplane(Vector normal,ThreeDPoint point, Vector line){
+    public static double planeDist(Vector normal,ThreeDPoint point, Vector line){
         double d = normal.x*point.getX()+normal.y*point.getY()+normal.z*point.getZ();// the d in ax+by+cz=d
-        double t = d/(normal.x*line.x+normal.y*line.y+normal.z*line.z);
-        return new ThreeDPoint(t*line.x,t*line.y,t*line.z);
+        return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z);
     }
 }
