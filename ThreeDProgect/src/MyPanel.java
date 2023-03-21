@@ -11,7 +11,9 @@ public class MyPanel extends JPanel{
         P = player;
     }
     private int lineAt(Point p1,Point p2,int x){
-      return (int)((Math.round((double)(p2.getX()-p1.getX())/(p2.getY()-p1.getY())))+p1.getX());
+        if(p1.getX()==p2.getX())
+            return (int)(p1.getY()+p2.getY())/2;
+      return (int)((p2.getX()-p1.getX())/(p2.getY()-p1.getY()))()+p1.getX());
     }
     @Override
     public void paint(Graphics g){
@@ -29,13 +31,19 @@ public class MyPanel extends JPanel{
         double sinX = Math.sin(P.getXFacing());
         double cosY = Math.cos(P.getYFacing());
         double sinY = Math.sin(P.getYFacing());
-        int[] cosXs = new int[getWidth()];
-                int[] sinXs = new int[getWidth()];
-                for(int i=0;i<getWidth();i++){
-                  cosXs[i] = Math.cos(P.getXFacing)
-                }
-                int[] cosYs = new int[getHeight()];
-                int[] sinYs = new int[getHeight()];//are all calculated once, not for every point
+        double[] cosXs = new double[getWidth()];
+        double[] sinXs = new double[getWidth()];
+        for(int i=0;i<getWidth();i++){
+              cosXs[i] = Math.cos(P.getXFacing()+((getWidth()*-.5+i)/getWidth())*Math.PI/2);
+              sinXs[i] = Math.sin(P.getXFacing()+((getWidth()*-.5+i)/getWidth())*Math.PI/2);
+            }
+        double[] cosYs = new double[getHeight()];
+        double[] sinYs = new double[getHeight()];
+        for(int i=0;i<getHeight();i++){
+            cosYs[i] = Math.cos(P.getYFacing()+((getHeight()*-.5+i)/getHeight())*Math.PI/2);
+            sinYs[i] = Math.sin(P.getYFacing()+((getHeight()*-.5+i)/getHeight())*Math.PI/2);
+        }
+                //are all calculated once, not for every point
         //System.out.println("cosX - "+cosX+"\ncosY - "+cosY+"\nsinX - "+sinX+"\nsinY - "+sinY+"\n");
         //System.out.println("mobs - "+mobs.size());
         for(int mob = 0;mob<mobs.size();mob++){//loops through every mob
@@ -94,14 +102,15 @@ public class MyPanel extends JPanel{
                         end = lineAt(screenTriangle[0],screenTriangle[1],x);
                     else
                         end = lineAt(screenTriangle[1],screenTriangle[2],x);
+                    System.out.println(""+lineAt(screenTriangle[0],screenTriangle[2],x)+","+direction+","+end);
                     for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){//loops through every pixel that needs to be displayed
                         double dist = Vector.planeDist(
                                 normal,
                                 triangle[0],
                                 new Vector(
-                                        Math.cos(P.getYFacing()+)cosY*cosX,
-                                        cosY*sinX,
-                                        sinY
+                                        cosYs[y]*cosXs[x],
+                                        cosYs[y]*sinXs[x],
+                                        sinYs[y]
                                 )
                         );
                         if(dist>0) {
