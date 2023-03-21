@@ -11,11 +11,6 @@ public class Cube extends Mob{
       return false;
     }
     @Override
-    public WireFrame getWireFrame(){
-      return wireFrame;
-    }
-
-    @Override
     public String toString() {
         return "Cube";
     }

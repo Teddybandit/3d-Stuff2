@@ -28,7 +28,14 @@ public class MyPanel extends JPanel{
         double cosX = Math.cos(P.getXFacing());
         double sinX = Math.sin(P.getXFacing());
         double cosY = Math.cos(P.getYFacing());
-        double sinY = Math.sin(P.getYFacing());//are all calculated once, not for every point
+        double sinY = Math.sin(P.getYFacing());
+        int[] cosXs = new int[getWidth()];
+                int[] sinXs = new int[getWidth()];
+                for(int i=0;i<getWidth();i++){
+                  cosXs[i] = Math.cos(P.getXFacing)
+                }
+                int[] cosYs = new int[getHeight()];
+                int[] sinYs = new int[getHeight()];//are all calculated once, not for every point
         //System.out.println("cosX - "+cosX+"\ncosY - "+cosY+"\nsinX - "+sinX+"\nsinY - "+sinY+"\n");
         //System.out.println("mobs - "+mobs.size());
         for(int mob = 0;mob<mobs.size();mob++){//loops through every mob
@@ -56,7 +63,7 @@ public class MyPanel extends JPanel{
               };
               Point[] screenTriangle = new Point[3];
               for(int i=0;i<3;i++){//gives screenTriangle the location of the points on a 2d screen
-                  screenTriangle[i] = Mob.whereLoad(triangle[i],P);
+                  screenTriangle[i] = Mob.whereLoad(triangle[i]);
                   //System.out.println(""+screenTriangle[i].toString());
                   image.getGraphics().fillOval((int)screenTriangle[i].getX(),(int)screenTriangle[i].getY(),10,10);
               }
@@ -65,7 +72,7 @@ public class MyPanel extends JPanel{
                     Point temp;
                     cont = false;
                     for(int i=0;i<2;i++){
-                        if(screenTriangle[i].getX()<screenTriangle[i+1].getX()){
+                        if(screenTriangle[i].getX()>screenTriangle[i+1].getX()){
                             temp = screenTriangle[i];
                             screenTriangle[i]=screenTriangle[i+1];
                             screenTriangle[i+1]=temp;
@@ -77,23 +84,24 @@ public class MyPanel extends JPanel{
                 if(lineAt(screenTriangle[0],screenTriangle[2],(int)screenTriangle[1].getX())>screenTriangle[1].getY()){
                   direction = 1;
                 }
-
-                for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){//loops through every pixel that needs to be displayed
+                Vector normal = Vector.multiply(
+                  new Vector(triangle[1],triangle[0]),
+                  new Vector(triangle[2],triangle[0]));
+//loops through every colomn that needs to be displayed
+                for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){
                     int end;
                     if(screenTriangle[1].getX()>x)
                         end = lineAt(screenTriangle[0],screenTriangle[1],x);
                     else
                         end = lineAt(screenTriangle[1],screenTriangle[2],x);
-                    for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){
+                    for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){//loops through every pixel that needs to be displayed
                         double dist = Vector.planeDist(
-                                Vector.multiply(
-                                        new Vector(triangle[1],triangle[0]),
-                                        new Vector(triangle[2],triangle[0])),
+                                normal,
                                 triangle[0],
                                 new Vector(
-                                        cosY*cosX,
+                                        Math.cos(P.getYFacing()+)cosY*cosX,
                                         cosY*sinX,
-                                        cosY
+                                        sinY
                                 )
                         );
                         if(dist>0) {
@@ -111,14 +119,14 @@ public class MyPanel extends JPanel{
             }
 
         }
-        for(int x=0;x< zBuffer.length;x++){
+        /*for(int x=0;x< zBuffer.length;x++){
             for(int y=0;y<zBuffer[0].length;y++){
-                if(zBuffer[x][y] >= 255)
+              if(zBuffer[x][y] >= 255)
                     image.setRGB(x,y,Color.WHITE.getRGB());
-            }else{
-                image.setRGB(x,y,new Color(zBuffer[x][y],zBuffer[x][y],zBuffer[x][y]));
+              else
+                image.setRGB(x,y,new Color((int)zBuffer[x][y],(int)zBuffer[x][y],(int)zBuffer[x][y]).getRGB());
             }
-        }
+        }*/
         g.drawImage(image,0,0,null);
     }
     public void addMob(Mob m){

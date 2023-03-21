@@ -153,7 +153,7 @@ public class Player{
         @Override
         public void mouseClicked(MouseEvent e) {
           super.mouseClicked(e);
-          panel.addMob(new Bullet(x,y,z,5*Math.cos(xFacing)*Math.cos(yFacing),5*Math.sin(xFacing)*Math.cos(yFacing),5*Math.sin(yFacing)));
+          //panel.addMob(new Bullet(x,y,z,5*Math.cos(xFacing)*Math.cos(yFacing),5*Math.sin(xFacing)*Math.cos(yFacing),5*Math.sin(yFacing)));
         }
       });
     }
