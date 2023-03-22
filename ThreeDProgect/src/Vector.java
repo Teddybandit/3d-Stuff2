@@ -21,4 +21,7 @@ public class Vector {
         double d = normal.x*point.getX()+normal.y*point.getY()+normal.z*point.getZ();// the d in ax+by+cz=d
         return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z)*-1;
     }
+    public String toString(){
+        return "vector - ["+x+","+y+","+z+"]";
+    }
 }

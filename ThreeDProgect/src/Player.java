@@ -139,10 +139,10 @@ public class Player{
         y+=2*Math.sin(xFacing);
       }
       if(leftPress){
-          xFacing=xFacing+Math.PI/100%(2*Math.PI);
+          xFacing=(xFacing+Math.PI/100)%(2*Math.PI);
       }
       if(rightPress){
-          xFacing=xFacing-Math.PI/100%(2*Math.PI);
+          xFacing=(xFacing-Math.PI/100)%(2*Math.PI);
       }
       if(upPress){
           Math.min(yFacing=yFacing+Math.PI/100%(2*Math.PI),Math.PI/2);

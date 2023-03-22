@@ -98,6 +98,7 @@ public class MyPanel extends JPanel{
                 Vector normal = Vector.multiply(
                   new Vector(triangle[1],triangle[0]),
                   new Vector(triangle[2],triangle[0]));
+                System.out.println(normal);
 //loops through every colomn that needs to be displayed
                 for(int x=Math.max((int)screenTriangle[0].getX(),0); x<screenTriangle[2].getX()&&x<getHeight(); x++){
                     
