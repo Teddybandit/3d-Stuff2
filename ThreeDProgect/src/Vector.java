@@ -19,6 +19,6 @@ public class Vector {
     //returns the point that the vector hits the plane if the vector starts at the origin
     public static double planeDist(Vector normal,ThreeDPoint point, Vector line){
         double d = normal.x*point.getX()+normal.y*point.getY()+normal.z*point.getZ();// the d in ax+by+cz=d
-        return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z);
+        return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z)*-1;
     }
 }

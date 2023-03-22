@@ -6,14 +6,17 @@ public class MyPanel extends JPanel{
     private Player P;
     private ArrayList<Mob> mobs = new ArrayList<Mob>();
     private BufferedImage image;
-    double[][] zBuffer;
+    private double[][] zBuffer;
+    private boolean seeZBuffer = false;
     public MyPanel(Player player){
         P = player;
     }
     private int lineAt(Point p1,Point p2,int x){
         if(p1.getX()==p2.getX())
             return (int)(p1.getY()+p2.getY())/2;
-      return (int)((p2.getX()-p1.getX())/(p2.getY()-p1.getY()))()+p1.getX());
+        if(p1.getY()==p2.getY())
+            return (int)p1.getY();
+      return (int)((p2.getY()-p1.getY())/(p2.getX()-p1.getX())*(x-p1.getX())+p1.getY());
     }
     @Override
     public void paint(Graphics g){
@@ -89,22 +92,32 @@ public class MyPanel extends JPanel{
                     }
                 }
                 int direction = -1;//whether the triangle is drawn from top to bottom, or bottom to top
-                if(lineAt(screenTriangle[0],screenTriangle[2],(int)screenTriangle[1].getX())>screenTriangle[1].getY()){
+                if(lineAt(screenTriangle[0],screenTriangle[2],(int)screenTriangle[1].getX())<screenTriangle[1].getY()){
                   direction = 1;
                 }
                 Vector normal = Vector.multiply(
                   new Vector(triangle[1],triangle[0]),
                   new Vector(triangle[2],triangle[0]));
 //loops through every colomn that needs to be displayed
-                for(int x=(int)screenTriangle[0].getX();x<screenTriangle[2].getX();x++){
+                for(int x=Math.max((int)screenTriangle[0].getX(),0); x<screenTriangle[2].getX()&&x<getHeight(); x++){
+                    
                     int end;
-                    if(screenTriangle[1].getX()>x)
+                    if(screenTriangle[1].getX()>x){
                         end = lineAt(screenTriangle[0],screenTriangle[1],x);
-                    else
+                        //System.out.println(end);
+                    }else{
                         end = lineAt(screenTriangle[1],screenTriangle[2],x);
-                    System.out.println(""+lineAt(screenTriangle[0],screenTriangle[2],x)+","+direction+","+end);
-                    for(int y=lineAt(screenTriangle[0],screenTriangle[2],x);y-direction!=end;y+=direction){//loops through every pixel that needs to be displayed
-                        double dist = Vector.planeDist(
+                        //System.out.println(end);
+                    }
+                    if(end>getHeight()-1) end=getHeight()-1;
+                    else if(end<0)  end=0;
+                    int start = lineAt(screenTriangle[0],screenTriangle[2],x);
+                    if(start>getHeight()-1) start=getHeight()-1;
+                    else if (start<0) start=0;
+                    for(int y = start;start>=y&&end<=y||start<=y&&end>=y;y+=direction){
+                      //loops through every pixel that needs to be displayed
+                      try{  
+                      double dist = Vector.planeDist(
                                 normal,
                                 triangle[0],
                                 new Vector(
@@ -113,12 +126,16 @@ public class MyPanel extends JPanel{
                                         sinYs[y]
                                 )
                         );
+                        //System.out.println(dist);
                         if(dist>0) {
                             if (zBuffer[x][y]>dist){
                                 zBuffer[x][y]=dist;
                                 image.setRGB(x,y,Color.GREEN.getRGB());
                             }
                         }
+                      }catch(Exception e){
+                System.out.println(e);        System.out.println(""+screenTriangle[0]+screenTriangle[1]+screenTriangle[2]+"\n"+x+" "+y+" "+start+" "+end);
+                      }
                     }
                 }
             }
@@ -128,17 +145,25 @@ public class MyPanel extends JPanel{
             }
 
         }
-        /*for(int x=0;x< zBuffer.length;x++){
-            for(int y=0;y<zBuffer[0].length;y++){
-              if(zBuffer[x][y] >= 255)
-                    image.setRGB(x,y,Color.WHITE.getRGB());
-              else
-                image.setRGB(x,y,new Color((int)zBuffer[x][y],(int)zBuffer[x][y],(int)zBuffer[x][y]).getRGB());
-            }
-        }*/
+        if(seeZBuffer){
+          for(int x=0;x< zBuffer.length;x++){
+              for(int y=0;y<zBuffer[0].length;y++){
+                if(zBuffer[x][y] >= 255)
+                      image.setRGB(x,y,Color.WHITE.getRGB());
+                else
+                  image.setRGB(x,y,new Color((int)zBuffer[x][y],(int)zBuffer[x][y],(int)zBuffer[x][y]).getRGB());
+              }
+          }
+        }
         g.drawImage(image,0,0,null);
     }
     public void addMob(Mob m){
         mobs.add(m);
+    }
+    public void zBufferOff(){
+      seeZBuffer = false;
+    }
+    public void zBufferOn(){
+      seeZBuffer = true;
     }
 }

@@ -41,6 +41,9 @@ public class Player{
               //System.out.println("w pressed");
               wPress = true;
               break;
+            case 84:
+              panel.zBufferOn();
+              break;
               case 37:
                   leftPress=true;
                   break;
@@ -73,6 +76,9 @@ public class Player{
             case 87:
               //System.out.println("w released");
               wPress = false;
+              break;
+            case 84:
+              panel.zBufferOff();
               break;
               case 37:
                   leftPress=false;
@@ -139,10 +145,10 @@ public class Player{
           xFacing=xFacing-Math.PI/100%(2*Math.PI);
       }
       if(upPress){
-          yFacing=yFacing+Math.PI/100%(2*Math.PI);
+          Math.min(yFacing=yFacing+Math.PI/100%(2*Math.PI),Math.PI/2);
       }
       if(downPress){
-          yFacing=yFacing-Math.PI/100%(2*Math.PI);
+          Math.max(yFacing=yFacing-Math.PI/100%(2*Math.PI),Math.PI/-2);
       }
     }
     public void addPanel(MyPanel p){
