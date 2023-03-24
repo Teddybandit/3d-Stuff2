@@ -24,10 +24,10 @@ public abstract class Mob{
     }
     public static Point whereLoad(ThreeDPoint point){
         double r = hypotenuse(point.getZ(),point.getY());
-        double theta = Math.tan(/r)
+        double theta = Math.atan2(r,point.getX())/2/Math.PI;
         return new Point(
-          (int)(panel.getWidth()*((2.5 - (Math.atan2(point.getY(), point.getX()))*2)%(4)-2)),
-          (int)(panel.getHeight()*(.5-(Math.atan2(point.getZ(), Mob.hypotenuse(point.getX(), point.getY()))*2)))
+          (int)(panel.getWidth()*(point.getX()*theta)),
+          (int)(panel.getHeight()*(point.getY()*theta))
         );
     }
     public static void sortDist(ArrayList<Mob> mobs){//uses bubble sort because the array will be nearly sorted
