@@ -12,11 +12,12 @@ public class MyPanel extends JPanel{
         P = player;
     }
     private int lineAt(Point p1,Point p2,int x){
-        if(p1.getX()==p2.getX())
+        double slope = (p2.getX()-p1.getX())/(p2.getY()-p1.getY());
+        /*if(p1.getX()==p2.getX())
             return (int)(p1.getY()+p2.getY())/2;
         if(p1.getY()==p2.getY())
             return (int)p1.getY();
-      return (int)((p2.getY()-p1.getY())/(p2.getX()-p1.getX())*(x-p1.getX())+p1.getY());
+      return (int)((p2.getY()-p1.getY())/(p2.getX()-p1.getX())*(x-p1.getX())+p1.getY());*/
     }
     @Override
     public void paint(Graphics g){
@@ -76,7 +77,6 @@ public class MyPanel extends JPanel{
               for(int i=0;i<3;i++){//gives screenTriangle the location of the points on a 2d screen
                   screenTriangle[i] = Mob.whereLoad(triangle[i]);
                   //System.out.println(""+screenTriangle[i].toString());
-                  image.getGraphics().fillOval((int)screenTriangle[i].getX(),(int)screenTriangle[i].getY(),10,10);
               }
                 boolean cont = true;
                 while(cont){//sorts the screen points by ascending x value
@@ -98,7 +98,7 @@ public class MyPanel extends JPanel{
                 Vector normal = Vector.multiply(
                   new Vector(triangle[1],triangle[0]),
                   new Vector(triangle[2],triangle[0]));
-                System.out.println(normal);
+                //System.out.println(normal);
 //loops through every colomn that needs to be displayed
                 for(int x=Math.max((int)screenTriangle[0].getX(),0); x<screenTriangle[2].getX()&&x<getHeight(); x++){
                     
@@ -129,10 +129,10 @@ public class MyPanel extends JPanel{
                         );
                         //System.out.println(dist);
                         if(dist>0) {
-                            if (zBuffer[x][y]>dist){
-                                zBuffer[x][y]=dist;
-                                image.setRGB(x,y,Color.GREEN.getRGB());
-                            }
+                           if (true||zBuffer[x][y]>dist){
+                            zBuffer[x][y]=dist;
+                            image.setRGB(x,y,mobs.get(mob).getWireFrame().getRGB(faceNum));
+                          }
                         }
                       }catch(Exception e){
                 System.out.println(e);        System.out.println(""+screenTriangle[0]+screenTriangle[1]+screenTriangle[2]+"\n"+x+" "+y+" "+start+" "+end);
@@ -156,6 +156,8 @@ public class MyPanel extends JPanel{
               }
           }
         }
+        image.getGraphics().drawString(""+P.getXFacing(),0,0);
+        image.getGraphics().drawString(""+P.getYFacing(),0,0);
         g.drawImage(image,0,0,null);
     }
     public void addMob(Mob m){

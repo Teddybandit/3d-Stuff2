@@ -55,7 +55,12 @@ public class Player{
                   break;
               case 40:
                   downPress=true;
-
+                  break;
+              case 192:
+                  System.out.println(xFacing+"\n"+yFacing+"\n"+x+"\n"+y);
+                  break;
+            default:
+              System.out.println(e.getKeyCode());
           }
         }
          @Override
@@ -145,10 +150,10 @@ public class Player{
           xFacing=(xFacing-Math.PI/100)%(2*Math.PI);
       }
       if(upPress){
-          Math.min(yFacing=yFacing+Math.PI/100%(2*Math.PI),Math.PI/2);
+          yFacing=Math.min(yFacing+Math.PI/100,Math.PI/2);
       }
       if(downPress){
-          Math.max(yFacing=yFacing-Math.PI/100%(2*Math.PI),Math.PI/-2);
+          yFacing=Math.max(yFacing-Math.PI/100,Math.PI/-2);
       }
     }
     public void addPanel(MyPanel p){

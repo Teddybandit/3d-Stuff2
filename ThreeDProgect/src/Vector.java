@@ -16,7 +16,7 @@ public class Vector {
            return new Vector(v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x);
     }
     //takes a point on the plane, the normal of the plane, and the line being checked
-    //returns the point that the vector hits the plane if the vector starts at the origin
+    //returns the distance to the lines intersection with the plane
     public static double planeDist(Vector normal,ThreeDPoint point, Vector line){
         double d = normal.x*point.getX()+normal.y*point.getY()+normal.z*point.getZ();// the d in ax+by+cz=d
         return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z)*-1;
