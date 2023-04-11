@@ -12,12 +12,11 @@ public class MyPanel extends JPanel{
         P = player;
     }
     private int lineAt(Point p1,Point p2,int x){
-        double slope = (p2.getX()-p1.getX())/(p2.getY()-p1.getY());
-        /*if(p1.getX()==p2.getX())
+        if(p1.getX()==p2.getX())
             return (int)(p1.getY()+p2.getY())/2;
         if(p1.getY()==p2.getY())
             return (int)p1.getY();
-      return (int)((p2.getY()-p1.getY())/(p2.getX()-p1.getX())*(x-p1.getX())+p1.getY());*/
+      return (int)((p2.getY()-p1.getY())/(p2.getX()-p1.getX())*(x-p1.getX())+p1.getY());
     }
     @Override
     public void paint(Graphics g){
@@ -78,45 +77,15 @@ public class MyPanel extends JPanel{
                   screenTriangle[i] = Mob.whereLoad(triangle[i]);
                   //System.out.println(""+screenTriangle[i].toString());
               }
-                boolean cont = true;
-                while(cont){//sorts the screen points by ascending x value
-                    Point temp;
-                    cont = false;
-                    for(int i=0;i<2;i++){
-                        if(screenTriangle[i].getX()>screenTriangle[i+1].getX()){
-                            temp = screenTriangle[i];
-                            screenTriangle[i]=screenTriangle[i+1];
-                            screenTriangle[i+1]=temp;
-                            cont = true;
-                        }
-                    }
-                }
-                int direction = -1;//whether the triangle is drawn from top to bottom, or bottom to top
-                if(lineAt(screenTriangle[0],screenTriangle[2],(int)screenTriangle[1].getX())<screenTriangle[1].getY()){
-                  direction = 1;
-                }
+                
                 Vector normal = Vector.multiply(
                   new Vector(triangle[1],triangle[0]),
                   new Vector(triangle[2],triangle[0]));
                 //System.out.println(normal);
-//loops through every colomn that needs to be displayed
-                for(int x=Math.max((int)screenTriangle[0].getX(),0); x<screenTriangle[2].getX()&&x<getHeight(); x++){
-                    
-                    int end;
-                    if(screenTriangle[1].getX()>x){
-                        end = lineAt(screenTriangle[0],screenTriangle[1],x);
-                        //System.out.println(end);
-                    }else{
-                        end = lineAt(screenTriangle[1],screenTriangle[2],x);
-                        //System.out.println(end);
-                    }
-                    if(end>getHeight()-1) end=getHeight()-1;
-                    else if(end<0)  end=0;
-                    int start = lineAt(screenTriangle[0],screenTriangle[2],x);
-                    if(start>getHeight()-1) start=getHeight()-1;
-                    else if (start<0) start=0;
-                    for(int y = start;start>=y&&end<=y||start<=y&&end>=y;y+=direction){
-                      //loops through every pixel that needs to be displayed
+                      side[]
+                      for(int i=0;i<3;i++){
+                        
+                      }
                       try{  
                       double dist = Vector.planeDist(
                                 normal,
