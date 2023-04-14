@@ -22,7 +22,7 @@ class Main {
         Mob.setPanel(panel);
         player.addPanel(panel);
         panel.addMob(new Cube(100,0,0));
-        panel.addMob(new Floor(100,0,0));
+        panel.addMob(new Floor(0,0,0));
         player.addControlls();
         frame.add(panel);
         frame.setVisible(true);
