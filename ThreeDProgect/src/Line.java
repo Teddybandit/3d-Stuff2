@@ -21,6 +21,8 @@ public class Line{
     return slope;
   }
   public static Point intersect(Line l1, Line l2){
+    if(l1.slope==l2.slope)
+      return new Point(0,0);
     double x = (l1.xIntercept-l2.xIntercept)/(l1.slope-l2.slope);
     return new Point((int)x,(int)l1.solveY(x));
   }

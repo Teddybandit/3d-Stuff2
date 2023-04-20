@@ -64,7 +64,9 @@ public class MyPanel extends JPanel{
                 vertex.setY(cosX*y1-sinX*x1);
                 vertex.setZ(cosY*z1-sinY*x2);//rotates the points about the y axis
                 vertex.setX(cosY*x2+sinY*z1);
-                //System.out.println(vertex);
+                Point p = Mob.whereLoad(vertex);
+                image.getGraphics().setColor(Color.BLACK);
+                image.getGraphics().fillOval((int)p.getX()-5,(int)p.getY()-5,10,10);
             }
             for(int faceNum=0;faceNum<mobs.get(mob).getWireFrame().getFaceNum();faceNum++){//loops through every face in the mob
               ThreeDPoint[] triangle = {
@@ -81,31 +83,34 @@ public class MyPanel extends JPanel{
                 Vector normal = Vector.multiply(
                   new Vector(triangle[1],triangle[0]),
                   new Vector(triangle[2],triangle[0]));
+              Side[] sides = Side.makeTriangle(screenTriangle);
                 //System.out.println(normal);
-                      side[]
-                      for(int i=0;i<3;i++){
-                        
-                      }
-                      try{  
-                      double dist = Vector.planeDist(
-                                normal,
-                                triangle[0],
-                                new Vector(
-                                        cosYs[y]*cosXs[x],
-                                        cosYs[y]*sinXs[x],
-                                        sinYs[y]
-                                )
-                        );
-                        //System.out.println(dist);
-                        if(dist>0) {
-                           if (true||zBuffer[x][y]>dist){
-                            zBuffer[x][y]=dist;
-                            image.setRGB(x,y,mobs.get(mob).getWireFrame().getRGB(faceNum));
-                          }
+
+                for(int x=0;x<getWidth();x++){
+                    for(int y=0;y<getHeight();y++){
+                        if(Side.insideShape(sides,x,y)) {
+                            try {
+                                double dist = Vector.planeDist(
+                                        normal,
+                                        triangle[0],
+                                        new Vector(
+                                                cosYs[y] * cosXs[x],
+                                                cosYs[y] * sinXs[x],
+                                                sinYs[y]
+                                        )
+                                );
+                                //System.out.println(dist);
+                                if (dist > 0) {
+                                    if (true || zBuffer[x][y] > dist) {
+                                        zBuffer[x][y] = dist;
+                                        image.setRGB(x, y, mobs.get(mob).getWireFrame().getRGB(faceNum));
+                                    }
+                                }
+                            } catch (Exception e) {
+                                System.out.println(e);
+                                System.out.println("" + screenTriangle[0] + screenTriangle[1] + screenTriangle[2] + "\n" + x + " " + y);
+                            }
                         }
-                      }catch(Exception e){
-                System.out.println(e);        System.out.println(""+screenTriangle[0]+screenTriangle[1]+screenTriangle[2]+"\n"+x+" "+y+" "+start+" "+end);
-                      }
                     }
                 }
             }
