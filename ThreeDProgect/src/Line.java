@@ -10,6 +10,9 @@ public class Line{
     slope = s;
     xIntercept = intercept;
   }
+  public Line(Point p, double slope){
+
+  }
   //returns the Y with the X
   public double solveY(double x){
     return xIntercept+(slope)*x;
@@ -25,5 +28,8 @@ public class Line{
       return new Point(0,0);
     double x = (l1.xIntercept-l2.xIntercept)/(l1.slope-l2.slope);
     return new Point((int)x,(int)l1.solveY(x));
+  }
+  public void draw(Graphics g){
+    g.drawLine(-500,(int)solveY(-500),500,(int)solveY(500));
   }
 }

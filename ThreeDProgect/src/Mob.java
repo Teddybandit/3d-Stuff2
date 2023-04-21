@@ -26,7 +26,7 @@ public abstract class Mob{
         double r = hypotenuse(point.getZ(),point.getY());
         double theta = Math.atan2(r,point.getX())*2/Math.PI;
         return new Point(
-          (int)(panel.getWidth()*(theta*point.getY()/r+.5)),
+          (int)(panel.getWidth()*(-1*theta*point.getY()/r+.5)),
           (int)(panel.getHeight()*(theta*point.getZ()/r+.5))
         );
     }

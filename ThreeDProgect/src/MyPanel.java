@@ -23,6 +23,7 @@ public class MyPanel extends JPanel{
         super.paintComponents(g);
         zBuffer = new double[getWidth()][getHeight()];//creates the zBuffer array to determine occlusion
         image = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_ARGB);//the image that will be displayed at the end
+        Side.setGraphics(image.getGraphics());
         for(int x=0;x< zBuffer.length;x++){
             for(int y=0;y<zBuffer[0].length;y++){
                 zBuffer[x][y] = Integer.MAX_VALUE;
