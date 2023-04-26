@@ -144,16 +144,16 @@ public class Player{
         y+=2*Math.sin(xFacing);
       }
       if(leftPress){
-          xFacing=(xFacing+Math.PI/100)%(2*Math.PI);
-      }
-      if(rightPress){
           xFacing=(xFacing-Math.PI/100)%(2*Math.PI);
       }
+      if(rightPress){
+          xFacing=(xFacing+Math.PI/100)%(2*Math.PI);
+      }
       if(upPress){
-          yFacing=Math.min(yFacing+Math.PI/100,Math.PI/2);
+          yFacing=Math.min(yFacing-Math.PI/100,Math.PI/2);
       }
       if(downPress){
-          yFacing=Math.max(yFacing-Math.PI/100,Math.PI/-2);
+          yFacing=Math.max(yFacing+Math.PI/100,Math.PI/-2);
       }
     }
     public void addPanel(MyPanel p){

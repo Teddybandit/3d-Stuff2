@@ -9,8 +9,9 @@ public class Side{
   private static Graphics g;
   public Side(Point p1, Point p2, Point p3){
     Line cord = new Line(p1,p2);
-
-    Line perpendicular = new Line(1/cord.getSlope(),0);
+    cord.draw(g);
+    Line perpendicular = new Line(-1/cord.getSlope(),new Point(250,250));
+    perpendicular.draw(g);
     Point intersection = Line.intersect(cord,perpendicular);
     g.fillOval((int)intersection.getX()-5,(int)intersection.getY()-5,10,10);
     //the difference between the real midpoint and the point along the cord
@@ -18,13 +19,15 @@ public class Side{
             (int)((p1.getX()+p2.getX())/2-intersection.getX()),
             (int)((p1.getY()+p2.getY())/2-intersection.getY())
     );
+    g.fillOval((int)shift.getX()-5,(int)shift.getY()-5,10,10);
+    //new Line(perpendicular.getSlope(),shift).draw(g);
     //the distance between shift and either of the points
-    Double dist = Math.sqrt(Math.pow(shift.getX()-p1.getX(),2)+Math.pow(shift.getY()-p1.getY(),2));
+    Double shiftDist = Math.sqrt(Math.pow(shift.getX()-p1.getX(),2)+Math.pow(shift.getY()-p1.getY(),2));
     //the arc between the two points on the circle
     double angle = Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX())-
             Math.atan2(p2.getY()-shift.getY(),p2.getX()-shift.getY());
     //the distance from shift that the circle will be drawn
-    Double finalDist = Math.tan(-1*(dist/1000*Math.PI)+Math.PI/2)/Math.cos(angle/2);
+    Double finalDist = Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle/2);
     double perpAngle = Math.atan2(shift.getX()-intersection.getX(),shift.getY()-intersection.getY());
     center = new Point((int)(shift.getX()+finalDist*Math.cos(perpAngle)),
             (int)(shift.getY()+finalDist*Math.sin(perpAngle))
