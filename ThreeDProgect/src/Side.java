@@ -16,8 +16,8 @@ public class Side{
     g.fillOval((int)intersection.getX()-5,(int)intersection.getY()-5,10,10);
     //the difference between the real midpoint and the point along the cord
     Point shift = new Point(
-            (int)((p1.getX()+p2.getX())/2-intersection.getX()),
-            (int)((p1.getY()+p2.getY())/2-intersection.getY())
+            (int)((p1.getX()+p2.getX())/2-intersection.getX())+250,
+            (int)((p1.getY()+p2.getY())/2-intersection.getY())+250
     );
     g.fillOval((int)shift.getX()-5,(int)shift.getY()-5,10,10);
     //new Line(perpendicular.getSlope(),shift).draw(g);
@@ -28,13 +28,12 @@ public class Side{
             Math.atan2(p2.getY()-shift.getY(),p2.getX()-shift.getY());
     //the distance from shift that the circle will be drawn
     Double finalDist = Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle/2);
-    double perpAngle = Math.atan2(shift.getX()-intersection.getX(),shift.getY()-intersection.getY());
+    double perpAngle = Math.atan2(shift.getY()-intersection.getY(),shift.getX()-intersection.getX());
     center = new Point((int)(shift.getX()+finalDist*Math.cos(perpAngle)),
             (int)(shift.getY()+finalDist*Math.sin(perpAngle))
             );
     sqrradius = Math.pow(center.getX()-p1.getX(),2);
     facing = (Math.pow(p3.getX()-center.getX(),2)+Math.pow(p3.getY()-center.getX(),2))<sqrradius;
-    center= new Point ((int)center.getX()+250,(int)center.getY()+250);
   }
   public boolean isInside(int x,int y){
     return ((Math.pow(x-center.getX(),2)+Math.pow(y-center.getY(),2))<sqrradius)==facing;
