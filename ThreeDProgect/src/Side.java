@@ -24,16 +24,15 @@ public class Side{
     //the distance between shift and either of the points
     Double shiftDist = Math.sqrt(Math.pow(shift.getX()-p1.getX(),2)+Math.pow(shift.getY()-p1.getY(),2));
     //the arc between the two points on the circle
-    double angle = Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX())-
-            Math.atan2(p2.getY()-shift.getY(),p2.getX()-shift.getY());
+    double perpAngle = Math.atan2(shift.getY()-intersection.getY(),shift.getX()-intersection.getX());
+    double angle = Math.abs(perpAngle-Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX()));
     //the distance from shift that the circle will be drawn
     Double finalDist = Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle/2);
-    double perpAngle = Math.atan2(shift.getY()-intersection.getY(),shift.getX()-intersection.getX());
     center = new Point((int)(shift.getX()+finalDist*Math.cos(perpAngle)),
             (int)(shift.getY()+finalDist*Math.sin(perpAngle))
             );
-    sqrradius = Math.pow(center.getX()-p1.getX(),2);
-    facing = (Math.pow(p3.getX()-center.getX(),2)+Math.pow(p3.getY()-center.getX(),2))<sqrradius;
+    sqrradius = Math.pow(center.getX()-p1.getX(),2)+Math.pow(center.getY()-p1.getY(),2);
+    facing = (Math.pow(p3.getX()-center.getX(),2)+Math.pow(p3.getY()-center.getY(),2))<sqrradius;
   }
   public boolean isInside(int x,int y){
     return ((Math.pow(x-center.getX(),2)+Math.pow(y-center.getY(),2))<sqrradius)==facing;

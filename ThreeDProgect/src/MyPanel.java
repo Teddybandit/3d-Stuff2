@@ -104,7 +104,7 @@ public class MyPanel extends JPanel{
                                 if (dist > 0) {
                                     if (true || zBuffer[x][y] > dist) {
                                         zBuffer[x][y] = dist;
-                                        //image.setRGB(x, y, mobs.get(mob).getWireFrame().getRGB(faceNum));
+                                        image.setRGB(x, y, mobs.get(mob).getWireFrame().getRGB(faceNum));
                                     }
                                 }
                             } catch (Exception e) {
