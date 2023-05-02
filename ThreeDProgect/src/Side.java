@@ -4,7 +4,7 @@ import java.sql.SQLOutput;
 
 public class Side{
   private Point center;
-  private double sqrradius;
+  private double sqrRadius;
   private boolean facing;//true if the side needs to be filled on the inside of the circle
   private static Graphics g;
   public Side(Point p1, Point p2, Point p3){
@@ -25,17 +25,19 @@ public class Side{
     Double shiftDist = Math.sqrt(Math.pow(shift.getX()-p1.getX(),2)+Math.pow(shift.getY()-p1.getY(),2));
     //the arc between the two points on the circle
     double perpAngle = Math.atan2(shift.getY()-intersection.getY(),shift.getX()-intersection.getX());
-    double angle = Math.abs(perpAngle-Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX()));
+    double angle = Math.PI+perpAngle-Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX());
     //the distance from shift that the circle will be drawn
-    Double finalDist = Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle/2);
+    Double finalDist = 500*Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle);
     center = new Point((int)(shift.getX()+finalDist*Math.cos(perpAngle)),
             (int)(shift.getY()+finalDist*Math.sin(perpAngle))
             );
-    sqrradius = Math.pow(center.getX()-p1.getX(),2)+Math.pow(center.getY()-p1.getY(),2);
-    facing = (Math.pow(p3.getX()-center.getX(),2)+Math.pow(p3.getY()-center.getY(),2))<sqrradius;
+    sqrRadius = Math.pow(center.getX()-p1.getX(),2)+Math.pow(center.getY()-p1.getY(),2);
+    facing = (Math.pow(p3.getX()-center.getX(),2)+Math.pow(p3.getY()-center.getY(),2))<sqrRadius;
+    //System.out.println(sqrRadius);
+    //System.out.println(center);
   }
   public boolean isInside(int x,int y){
-    return ((Math.pow(x-center.getX(),2)+Math.pow(y-center.getY(),2))<sqrradius)==facing;
+    return ((Math.pow(x-center.getX(),2)+Math.pow(y-center.getY(),2))<sqrRadius)==facing;
   }
   public static boolean insideShape(Side[] sides,int x,int y){
     return sides[0].isInside(x,y)&&sides[1].isInside(x,y)&&sides[2].isInside(x,y);
