@@ -2,7 +2,7 @@ import java.awt.*;
 public class Line{
   private double slope;
   private double xIntercept;
-  public Line(Point p1, Point p2){
+  public Line(MyPoint p1, MyPoint p2){
     slope = (p2.getY()-p1.getY())/(p2.getX()-p1.getX());
     xIntercept = p1.getY()-p1.getX()*slope;
   }
@@ -10,7 +10,7 @@ public class Line{
     slope = s;
     xIntercept = intercept;
   }
-  public Line(double s,Point p){
+  public Line(double s,MyPoint p){
     slope = s;
     xIntercept = p.getY()-p.getX()*slope;
   }
@@ -24,11 +24,11 @@ public class Line{
   public double getSlope(){
     return slope;
   }
-  public static Point intersect(Line l1, Line l2){
+  public static MyPoint intersect(Line l1, Line l2){
     if(l1.slope==l2.slope)
-      return new Point(0,0);
+      return new MyPoint(0,0);
     double x = (l1.xIntercept-l2.xIntercept)/(l2.slope-l1.slope);
-    return new Point((int)x,(int)l1.solveY(x));
+    return new MyPoint(x,l1.solveY(x));
   }
   public void draw(Graphics g){
     g.setColor(Color.BLACK);

@@ -22,10 +22,10 @@ public abstract class Mob{
     public static int whereYLoad(Mob mob, Player p){
         return (int)(panel.getHeight()/2-((Math.atan2(mob.z-p.getz(),mob.dist))-p.getYFacing())/Math.PI*panel.getHeight()*2);
     }
-    public static Point whereLoad(ThreeDPoint point){
+    public static MyPoint whereLoad(ThreeDPoint point){
         double r = hypotenuse(point.getZ(),point.getY());
         double theta = Math.atan2(r,point.getX())*2/Math.PI;
-        return new Point(
+        return new MyPoint(
           (int)(panel.getWidth()*(1-(theta*point.getY()/r+.5))),
           (int)(panel.getHeight()*(1-(theta*point.getZ()/r+.5)))
         );

@@ -38,8 +38,8 @@ public class MyPanel extends JPanel{
         double[] cosXs = new double[getWidth()];
         double[] sinXs = new double[getWidth()];
         for(int i=0;i<getWidth();i++){
-              cosXs[i] = Math.cos(P.getXFacing()+((getWidth()*-.5+i)/getWidth())*Math.PI/2);
-              sinXs[i] = Math.sin(P.getXFacing()+((getWidth()*-.5+i)/getWidth())*Math.PI/2);
+              cosXs[i] = Math.cos(P.getXFacing()+((getWidth()*.5-i)/getWidth())*Math.PI/2);
+              sinXs[i] = Math.sin(P.getXFacing()+((getWidth()*.5-i)/getWidth())*Math.PI/2);
             }
         double[] cosYs = new double[getHeight()];
         double[] sinYs = new double[getHeight()];
@@ -65,7 +65,7 @@ public class MyPanel extends JPanel{
                 vertex.setY(cosX*y1-sinX*x1);
                 vertex.setZ(cosY*z1-sinY*x2);//rotates the points about the y axis
                 vertex.setX(cosY*x2+sinY*z1);
-                Point p = Mob.whereLoad(vertex);
+                MyPoint p = Mob.whereLoad(vertex);
                 image.getGraphics().setColor(Color.BLACK);
                 image.getGraphics().fillOval((int)p.getX()-5,(int)p.getY()-5,10,10);
             }
@@ -75,7 +75,7 @@ public class MyPanel extends JPanel{
                 points[mobs.get(mob).getWireFrame().getFacePoint(faceNum,1)],
                 points[mobs.get(mob).getWireFrame().getFacePoint(faceNum,2)]
               };
-              Point[] screenTriangle = new Point[3];
+              MyPoint[] screenTriangle = new MyPoint[3];
               for(int i=0;i<3;i++){//gives screenTriangle the location of the points on a 2d screen
                   screenTriangle[i] = Mob.whereLoad(triangle[i]);
                   //System.out.println(""+screenTriangle[i].toString());
