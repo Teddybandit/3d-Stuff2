@@ -10,7 +10,7 @@ public class Side{
   public Side(MyPoint p1, MyPoint p2, MyPoint p3){
     Line cord = new Line(p1,p2);
     cord.draw(g);
-    Line perpendicular = new Line(-1/cord.getSlope(),new MyPoint(250,250));
+    Line perpendicular = cord.pendicular(new MyPoint(250,250));
     //perpendicular.draw(g);
     MyPoint intersection = Line.intersect(cord,perpendicular);
     //g.fillOval((int)intersection.getX()-5,(int)intersection.getY()-5,10,10);
