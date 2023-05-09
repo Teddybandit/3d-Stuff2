@@ -9,7 +9,7 @@ public class Side{
   private static Graphics g;
   public Side(MyPoint p1, MyPoint p2, MyPoint p3){
     Line cord = new Line(p1,p2);
-    cord.draw(g);
+    //cord.draw(g);
     Line perpendicular = cord.pendicular(new MyPoint(250,250));
     //perpendicular.draw(g);
     MyPoint intersection = Line.intersect(cord,perpendicular);
@@ -29,6 +29,8 @@ public class Side{
     double angle = perpAngle-Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX());
     //the distance from shift that the circle will be drawn
     Double finalDist = -500*Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle);
+    if(finalDist>1000000)
+      finalDist = 1000000d;
     //System.out.println(finalDist);
     center = new MyPoint((int)(shift.getX()+finalDist*Math.cos(perpAngle)),
             (int)(shift.getY()+finalDist*Math.sin(perpAngle))

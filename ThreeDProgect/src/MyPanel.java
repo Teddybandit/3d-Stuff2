@@ -38,14 +38,14 @@ public class MyPanel extends JPanel{
         double[] cosXs = new double[getWidth()];
         double[] sinXs = new double[getWidth()];
         for(int i=0;i<getWidth();i++){
-              cosXs[i] = Math.cos(P.getXFacing()+((getWidth()*.5-i)/getWidth())*Math.PI/2);
-              sinXs[i] = Math.sin(P.getXFacing()+((getWidth()*.5-i)/getWidth())*Math.PI/2);
+              cosXs[i] = Math.cos(((getWidth()*.5-i)/getWidth())*Math.PI/2);
+              sinXs[i] = Math.sin(((getWidth()*.5-i)/getWidth())*Math.PI/2);
             }
         double[] cosYs = new double[getHeight()];
         double[] sinYs = new double[getHeight()];
         for(int i=0;i<getHeight();i++){
-            cosYs[i] = Math.cos(P.getYFacing()+((getHeight()*-.5+i)/getHeight())*Math.PI/2);
-            sinYs[i] = Math.sin(P.getYFacing()+((getHeight()*-.5+i)/getHeight())*Math.PI/2);
+            cosYs[i] = Math.cos(((getHeight()*-.5+i)/getHeight())*Math.PI/2);
+            sinYs[i] = Math.sin(((getHeight()*-.5+i)/getHeight())*Math.PI/2);
         }
                 //are all calculated once, not for every point
         //System.out.println("cosX - "+cosX+"\ncosY - "+cosY+"\nsinX - "+sinX+"\nsinY - "+sinY+"\n");
@@ -97,12 +97,12 @@ public class MyPanel extends JPanel{
                                         new Vector(
                                                 cosYs[y] * cosXs[x],
                                                 cosYs[y] * sinXs[x],
-                                                sinYs[y]
+                                                -sinYs[y]
                                         )
                                 );
                                 //System.out.println(dist);
                                 if (dist > 0) {
-                                    if (true || zBuffer[x][y] > dist) {
+                                    if (zBuffer[x][y] > dist) {
                                         zBuffer[x][y] = dist;
                                         image.setRGB(x, y, mobs.get(mob).getWireFrame().getRGB(faceNum));
                                     }

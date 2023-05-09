@@ -18,9 +18,9 @@ public class Vector {
     //takes a point on the plane, the normal of the plane, and the line being checked
     //returns the distance to the lines intersection with the plane
     public static double planeDist(Vector normal,ThreeDPoint point, Vector line){
-        System.out.println(line);
+        //System.out.println(line);
         double d = normal.x*point.getX()+normal.y*point.getY()+normal.z*point.getZ();// the d in ax+by+cz=d
-        return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z)*-1;
+        return d/(normal.x*line.x+normal.y*line.y+normal.z*line.z);
     }
     public String toString(){
         return "vector - ["+x+","+y+","+z+"]";
