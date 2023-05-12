@@ -4,7 +4,8 @@ import javax.swing.*;
 class Main {
     private static boolean pause = true;
     public static void main(String[] args) {
-        System.out.println(Color.GREEN.getRGB());
+        System.out.println(new Line(Double.POSITIVE_INFINITY,new MyPoint(250,250)).pendicular(new MyPoint(250,250)));
+        System.out.println(Color.RED.getRGB());
         Frame frame = new Frame();
         frame.addKeyListener(new KeyAdapter() {
             @Override

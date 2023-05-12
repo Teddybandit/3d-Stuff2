@@ -4,6 +4,7 @@ public class Line{
   private double xIntercept;
   private double verticleX = 0;
   private boolean isVerticle = false;
+  //point point
   public Line(MyPoint p1, MyPoint p2){
     if(p1.getX()==p2.getX()){
       verticleX = p1.getX();
@@ -13,13 +14,15 @@ public class Line{
       xIntercept = p1.getY() - p1.getX() * slope;
     }
   }
+  //slope intercept
   public Line (double s,double intercept){
     slope = s;
     xIntercept = intercept;
   }
+  //point slope
   public Line(double s,MyPoint p){
     slope = s;
-    if(s == Integer.MAX_VALUE){
+    if(s == Double.POSITIVE_INFINITY||s == Double.NEGATIVE_INFINITY){
       isVerticle = true;
       verticleX = p.getX();
     }else {
@@ -38,10 +41,10 @@ public class Line{
   }
   public static MyPoint intersect(Line l1, Line l2){
     if(l1.isVerticle){
-      return new MyPoint(l2.solveY(l1.verticleX),l1.verticleX);
+      return new MyPoint(l1.verticleX,l2.solveY(l1.verticleX));
     }
     if(l2.isVerticle){
-      return new MyPoint(l1.solveY(l2.verticleX),l2.verticleX);
+      return new MyPoint(l2.verticleX,l1.solveY(l2.verticleX));
     }
     if(l1.slope==l2.slope) {
       return new MyPoint(0, 0);
@@ -51,13 +54,21 @@ public class Line{
   }
   public void draw(Graphics g){
     g.setColor(Color.BLACK);
-    g.drawLine(-500,(int)solveY(-500),500,(int)solveY(500));
+    if(isVerticle)
+      g.drawLine((int)verticleX,-500,(int)verticleX,500);
+    else
+      g.drawLine(-500,(int)solveY(-500),500,(int)solveY(500));
   }
   public Line pendicular(MyPoint p){
-    if(slope == 0){
-      return new Line(Integer.MAX_VALUE,p.getX());
-    }else{
       return new Line(-1/slope,p);
+  }
+  public String toString(){
+    if (isVerticle){
+      return "x = "+verticleX;
     }
+    if (slope == 0){
+      return "y = "+xIntercept;
+    }
+    return "y = "+slope+"x + "+xIntercept;
   }
 }

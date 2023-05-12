@@ -17,4 +17,7 @@ public class MyPoint {
     public void setY(double sety){
         y=sety;
     }
+    public String toString(){
+        return "{"+x+","+y+"}";
+    }
 }

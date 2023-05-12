@@ -30,6 +30,7 @@ public class MyPanel extends JPanel{
                 image.setRGB(x,y,new Color(64,64,128).getRGB());
             }
         }
+        new Line(-0,new MyPoint(250,250)).draw(image.getGraphics());
         //System.out.println("XFacing - "+P.getXFacing()/Math.PI+"pi\nYFacing - "+P.getYFacing()/Math.PI+"pi");
         double cosX = Math.cos(P.getXFacing());
         double sinX = Math.sin(P.getXFacing());
