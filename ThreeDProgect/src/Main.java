@@ -1,10 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.Math;
 import javax.swing.*;
 class Main {
     private static boolean pause = true;
     public static void main(String[] args) {
-        System.out.println(Color.GREEN.getRGB());
+        System.out.println(new Color(75,75,75).getRGB());
         Frame frame = new Frame();
         frame.addKeyListener(new KeyAdapter() {
             @Override
@@ -19,6 +20,7 @@ class Main {
         Player player = new Player();
         frame.addKeyListener(player.getControlls());
         MyPanel panel = new MyPanel(player);
+        panel.setFOV(Math.PI);
         Mob.setPanel(panel);
         Side.setMyPanl(panel);
         player.addPanel(panel);

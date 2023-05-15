@@ -10,7 +10,7 @@ public class Side{
   private static MyPanel panel;
   public Side(MyPoint p1, MyPoint p2, MyPoint p3){
     Line cord = new Line(p1,p2);
-    cord.draw(g);
+    //cord.draw(g);
     Line perpendicular = cord.pendicular(new MyPoint(panel.getWidth()/2,panel.getHeight()/2));
     //perpendicular.draw(g);
     MyPoint intersection = Line.intersect(cord,perpendicular);
@@ -22,10 +22,6 @@ public class Side{
             (int)(midPoint.getX()-intersection.getX())+panel.getWidth()/2,
             (int)(midPoint.getY()-intersection.getY())+panel.getHeight()/2
     );
-    //new Line(perpendicular.getSlope(),shift).draw(g);
-    //g.fillOval((int)shift.getX()-5,(int)shift.getY()-5,10,10);
-    //new Line(perpendicular.getSlope(),shift).draw(g);
-    //the distance between shift and either of the MyPoints
     Double shiftDist = Math.sqrt(Math.pow(shift.getX()-p1.getX(),2)+Math.pow(shift.getY()-p1.getY(),2));
     //the arc between the two MyPoints on the circle
     double perpAngle = Math.atan2(perpendicular.getSlope(),1);
@@ -36,7 +32,7 @@ public class Side{
     //the distance from shift that the circle will be drawn
     Double finalDist = panel.getWidth()/panel.getFOV()*-2*Math.tan(-1*(shiftDist/panel.getWidth()/2*Math.PI)+Math.PI/2)/Math.cos(angle);
     if(finalDist.isInfinite())
-      finalDist = Double.MAX_VALUE;
+      finalDist = 100000d;
     //System.out.println(finalDist);
     center = new MyPoint(
             (shift.getX()+finalDist*Math.cos(perpAngle)),
