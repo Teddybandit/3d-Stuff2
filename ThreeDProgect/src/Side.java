@@ -7,10 +7,11 @@ public class Side{
   private double sqrRadius;
   private boolean facing;//true if the side needs to be filled on the inside of the circle
   private static Graphics g;
+  private static MyPanel panel;
   public Side(MyPoint p1, MyPoint p2, MyPoint p3){
     Line cord = new Line(p1,p2);
-    //cord.draw(g);
-    Line perpendicular = cord.pendicular(new MyPoint(250,250));
+    cord.draw(g);
+    Line perpendicular = cord.pendicular(new MyPoint(panel.getWidth()/2,panel.getHeight()/2));
     //perpendicular.draw(g);
     MyPoint intersection = Line.intersect(cord,perpendicular);
     //g.fillOval((int)intersection.getX()-5,(int)intersection.getY()-5,10,10);
@@ -18,8 +19,8 @@ public class Side{
     //g.fillOval((int)midPoint.getX()-5,(int)midPoint.getY()-5,10,10);
     //the difference between the real midPoint and the MyPoint along the cord
     MyPoint shift = new MyPoint(
-            (int)(midPoint.getX()-intersection.getX())+250,
-            (int)(midPoint.getY()-intersection.getY())+250
+            (int)(midPoint.getX()-intersection.getX())+panel.getWidth()/2,
+            (int)(midPoint.getY()-intersection.getY())+panel.getHeight()/2
     );
     //new Line(perpendicular.getSlope(),shift).draw(g);
     //g.fillOval((int)shift.getX()-5,(int)shift.getY()-5,10,10);
@@ -33,18 +34,18 @@ public class Side{
     }
     double angle = perpAngle-Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX());
     //the distance from shift that the circle will be drawn
-    Double finalDist = -500*Math.tan(-1*(shiftDist/1000*Math.PI)+Math.PI/2)/Math.cos(angle);
+    Double finalDist = panel.getWidth()/panel.getFOV()*-2*Math.tan(-1*(shiftDist/panel.getWidth()/2*Math.PI)+Math.PI/2)/Math.cos(angle);
     if(finalDist.isInfinite())
-      finalDist = 10000d;
+      finalDist = Double.MAX_VALUE;
     //System.out.println(finalDist);
     center = new MyPoint(
             (shift.getX()+finalDist*Math.cos(perpAngle)),
             (shift.getY()+finalDist*Math.sin(perpAngle))
             );
-    System.out.print(p1+", "+p2+", ");
-    System.out.print(cord+", ");
-    System.out.print(perpendicular+", ");
-    System.out.println(perpAngle/Math.PI);
+    //System.out.print(p1+", "+p2+", ");
+    //System.out.print(cord+", ");
+    //System.out.print(perpendicular+", ");
+    //System.out.println(perpAngle/Math.PI);
     //System.out.println(center);
     sqrRadius = Math.pow(center.getX()-p1.getX(),2)+Math.pow(center.getY()-p1.getY(),2);
     //System.out.println(sqrradius);
@@ -66,4 +67,5 @@ public class Side{
   public static void setGraphics(Graphics gr){
     g=gr;
   }
+  public static void setMyPanl(MyPanel MyP){panel = MyP;}
 }

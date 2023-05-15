@@ -6,11 +6,11 @@ public class Line{
   private boolean isVerticle = false;
   //point point
   public Line(MyPoint p1, MyPoint p2){
+    slope = (p2.getY() - p1.getY()) / (p2.getX() - p1.getX());
     if(p1.getX()==p2.getX()){
       verticleX = p1.getX();
       isVerticle = true;
     }else {
-      slope = (p2.getY() - p1.getY()) / (p2.getX() - p1.getX());
       xIntercept = p1.getY() - p1.getX() * slope;
     }
   }
@@ -57,7 +57,7 @@ public class Line{
     if(isVerticle)
       g.drawLine((int)verticleX,-500,(int)verticleX,500);
     else
-      g.drawLine(-500,(int)solveY(-500),500,(int)solveY(500));
+      g.drawLine(-500,(int)solveY(-500),1500,(int)solveY(1500));
   }
   public Line pendicular(MyPoint p){
       return new Line(-1/slope,p);

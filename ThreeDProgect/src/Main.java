@@ -4,8 +4,7 @@ import javax.swing.*;
 class Main {
     private static boolean pause = true;
     public static void main(String[] args) {
-        System.out.println(new Line(Double.POSITIVE_INFINITY,new MyPoint(250,250)).pendicular(new MyPoint(250,250)));
-        System.out.println(Color.RED.getRGB());
+        System.out.println(Color.GREEN.getRGB());
         Frame frame = new Frame();
         frame.addKeyListener(new KeyAdapter() {
             @Override
@@ -16,14 +15,15 @@ class Main {
             }
         });
         frame.setCursor(Cursor.CROSSHAIR_CURSOR);
-        frame.setSize(500,500);
+        frame.setSize(1000,500);
         Player player = new Player();
         frame.addKeyListener(player.getControlls());
         MyPanel panel = new MyPanel(player);
         Mob.setPanel(panel);
+        Side.setMyPanl(panel);
         player.addPanel(panel);
         panel.addMob(new Cube(100,0,0));
-        //panel.addMob(new Floor(0,0,0));
+        panel.addMob(new Floor(0,0,0));
         //player.addControlls();
         frame.add(panel);
         frame.setVisible(true);

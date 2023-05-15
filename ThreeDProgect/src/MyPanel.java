@@ -8,15 +8,9 @@ public class MyPanel extends JPanel{
     private BufferedImage image;
     private double[][] zBuffer;
     private boolean seeZBuffer = false;
+    private double FOV = .5*Math.PI;
     public MyPanel(Player player){
         P = player;
-    }
-    private int lineAt(Point p1,Point p2,int x){
-        if(p1.getX()==p2.getX())
-            return (int)(p1.getY()+p2.getY())/2;
-        if(p1.getY()==p2.getY())
-            return (int)p1.getY();
-      return (int)((p2.getY()-p1.getY())/(p2.getX()-p1.getX())*(x-p1.getX())+p1.getY());
     }
     @Override
     public void paint(Graphics g){
@@ -39,14 +33,14 @@ public class MyPanel extends JPanel{
         double[] cosXs = new double[getWidth()];
         double[] sinXs = new double[getWidth()];
         for(int i=0;i<getWidth();i++){
-              cosXs[i] = Math.cos(((getWidth()*.5-i)/getWidth())*Math.PI/2);
-              sinXs[i] = Math.sin(((getWidth()*.5-i)/getWidth())*Math.PI/2);
+              cosXs[i] = Math.cos(((getWidth()*.5-i)/getWidth())*FOV);
+              sinXs[i] = Math.sin(((getWidth()*.5-i)/getWidth())*FOV);
             }
         double[] cosYs = new double[getHeight()];
         double[] sinYs = new double[getHeight()];
         for(int i=0;i<getHeight();i++){
-            cosYs[i] = Math.cos(((getHeight()*-.5+i)/getHeight())*Math.PI/2);
-            sinYs[i] = Math.sin(((getHeight()*-.5+i)/getHeight())*Math.PI/2);
+            cosYs[i] = Math.cos(((getHeight()*-.5+i)/getWidth())*FOV);
+            sinYs[i] = Math.sin(((getHeight()*-.5+i)/getWidth())*FOV);
         }
                 //are all calculated once, not for every point
         //System.out.println("cosX - "+cosX+"\ncosY - "+cosY+"\nsinX - "+sinX+"\nsinY - "+sinY+"\n");
@@ -144,5 +138,8 @@ public class MyPanel extends JPanel{
     }
     public void zBufferOn(){
       seeZBuffer = true;
+    }
+    public double getFOV(){
+        return FOV;
     }
 }
