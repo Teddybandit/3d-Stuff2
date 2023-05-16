@@ -61,7 +61,7 @@ public class MyPanel extends JPanel{
                 vertex.setX(cosY*x2+sinY*z1);
                 MyPoint p = Mob.whereLoad(vertex);
                 image.getGraphics().setColor(Color.BLACK);
-                image.getGraphics().fillOval((int)p.getX()-5,(int)p.getY()-5,10,10);
+                //image.getGraphics().fillOval((int)p.getX()-5,(int)p.getY()-5,10,10);
             }
             for(int faceNum=0;faceNum<mobs.get(mob).getWireFrame().getFaceNum();faceNum++){//loops through every face in the mob
               ThreeDPoint[] triangle = {
