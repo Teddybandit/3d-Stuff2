@@ -28,6 +28,7 @@ public class WireFrame {
     public int getRGB(int i) {
         return RGB[i];
     }
+    public void setRGB (int i, int color){RGB[i] = color;}
 
     public WireFrame(String FileName) {
         Scanner scan = new Scanner("0\n0\n0");

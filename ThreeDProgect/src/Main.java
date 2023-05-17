@@ -5,8 +5,7 @@ import javax.swing.*;
 class Main {
     private static boolean pause = true;
     public static void main(String[] args) {
-        System.out.println(new Color(100,100,100).getRGB());
-        System.out.println(Color.ORANGE.getRGB());
+        System.out.println(1/Math.cos(Math.PI/2));
         Frame frame = new Frame();
         frame.addKeyListener(new KeyAdapter() {
             @Override
@@ -25,8 +24,15 @@ class Main {
         Mob.setPanel(panel);
         Side.setMyPanl(panel);
         player.addPanel(panel);
-        //panel.addMob(new Cube(100,0,0));
-        panel.addMob(new Floor(0,0,0));
+        panel.addMob(new Cube(100,0,0));
+        for(int x=-2;x<=2;x++) {
+            for (int y = -2; y <= 2; y++) {
+                int floorC = new Color(20,70,20).getRGB();
+                if((x+y)%2==0)
+                    floorC = new Color(20,100,20).getRGB();
+                panel.addMob(new Floor(20*x, 20*y, -10,floorC));
+            }
+        }
         //player.addControlls();
         frame.add(panel);
         frame.setVisible(true);
