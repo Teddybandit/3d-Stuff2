@@ -17,12 +17,12 @@ public class Side{
     //perpendicular.draw(g);
     MyPoint intersection = Line.intersect(cord,perpendicular);
     //g.fillOval((int)intersection.getX()-5,(int)intersection.getY()-5,10,10);
-    MyPoint midPoint = new MyPoint((int)(p1.getX()+p2.getX())/2,(int)(p1.getY()+p2.getY())/2);
+    MyPoint midPoint = new MyPoint((p1.getX()+p2.getX())/2,(p1.getY()+p2.getY())/2);
     //g.fillOval((int)midPoint.getX()-5,(int)midPoint.getY()-5,10,10);
     //the difference between the real midPoint and the MyPoint along the cord
     MyPoint shift = new MyPoint(
-            (int)(midPoint.getX()-intersection.getX())+panel.getWidth()/2,
-            (int)(midPoint.getY()-intersection.getY())+panel.getHeight()/2
+            (midPoint.getX()-intersection.getX())+panel.getWidth()/2,
+            (midPoint.getY()-intersection.getY())+panel.getHeight()/2
     );
     //g.fillOval((int)shift.getX()-5,(int)shift.getY()-5,10,10);
     //new Line(perpendicular.getSlope(),shift).draw(g);
@@ -34,7 +34,7 @@ public class Side{
     }
     double angle = perpAngle-Math.atan2(p1.getY()-shift.getY(),p1.getX()-shift.getX());
     //the distance from shift that the circle will be drawn
-    Double finalDist = panel.getWidth()/(panel.getFOV()*2/Math.PI)*-1*Math.tan(-1*(shiftDist/panel.getWidth()/2*Math.PI)+Math.PI/2)/Math.cos(angle);
+    Double finalDist = panel.getWidth()/(panel.getFOV()*Math.PI)*-1*Math.tan(-1*(shiftDist/panel.getWidth()/2*Math.PI)+Math.PI/2)/Math.cos(angle);
     if(finalDist>1000000d){
       isLine = true;
       line = new Inequality(cord.getSlope(),p1,p3);

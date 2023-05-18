@@ -20,17 +20,17 @@ class Main {
         Player player = new Player();
         frame.addKeyListener(player.getControlls());
         MyPanel panel = new MyPanel(player);
-        panel.setFOV(Math.PI);
+        panel.setFOV(2*Math.PI);
         Mob.setPanel(panel);
         Side.setMyPanl(panel);
         player.addPanel(panel);
         panel.addMob(new Cube(100,0,0));
-        for(int x=-2;x<=2;x++) {
-            for (int y = -2; y <= 2; y++) {
+        for(int x=-0;x<=0;x++) {
+            for (int y = -0; y <= 0; y++) {
                 int floorC = new Color(20,70,20).getRGB();
                 if((x+y)%2==0)
                     floorC = new Color(20,100,20).getRGB();
-                panel.addMob(new Floor(20*x, 20*y, -10,floorC));
+                panel.addMob(new Floor(50*x, 50*y, -10,floorC));
             }
         }
         //player.addControlls();

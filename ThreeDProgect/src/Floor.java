@@ -4,7 +4,7 @@ public class Floor extends Mob{
       super(x,y,z);
       wireFrame = new WireFrame("ThreeDProgect/src/floor.txt");
       wireFrame.setRGB(0,color);
-      wireFrame.setRGB(1,color);
+      //wireFrame.setRGB(1,color);
     }
     public void act() {
 
