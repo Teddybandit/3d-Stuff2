@@ -60,7 +60,7 @@ public class Line{
       g.drawLine(-500,(int)solveY(-500),1500,(int)solveY(1500));
   }
   public Line pendicular(MyPoint p){
-      return new Line(-1/slope,p);
+    return new Line(-1/slope,p);
   }
   public String toString(){
     if (isVerticle){

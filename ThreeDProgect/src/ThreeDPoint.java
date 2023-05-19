@@ -1,3 +1,5 @@
+
+
 public class ThreeDPoint{
   private double x,y,z;
   public ThreeDPoint(double x,double y,double z){

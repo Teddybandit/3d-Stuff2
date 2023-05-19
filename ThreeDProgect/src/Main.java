@@ -1,3 +1,5 @@
+
+
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Math;
@@ -15,25 +17,23 @@ class Main {
                 }
             }
         });
-        frame.setCursor(Cursor.CROSSHAIR_CURSOR);
-        frame.setSize(1000,500);
+        frame.setSize(500,500);
         Player player = new Player();
         frame.addKeyListener(player.getControlls());
         MyPanel panel = new MyPanel(player);
-        panel.setFOV(2*Math.PI);
+        panel.setFOV(Math.PI/2);
         Mob.setPanel(panel);
-        Side.setMyPanl(panel);
         player.addPanel(panel);
         panel.addMob(new Cube(100,0,0));
-        for(int x=-0;x<=0;x++) {
-            for (int y = -0; y <= 0; y++) {
+        for(int x=-1;x<=1;x++) {
+            for (int y = -1; y <= 1; y++) {
                 int floorC = new Color(20,70,20).getRGB();
                 if((x+y)%2==0)
                     floorC = new Color(20,100,20).getRGB();
-                panel.addMob(new Floor(50*x, 50*y, -10,floorC));
+                panel.addMob(new Floor(100*x, 100*y, -10,floorC));
             }
         }
-        //player.addControlls();
+//player.addControlls();
         frame.add(panel);
         frame.setVisible(true);
         while(true){
